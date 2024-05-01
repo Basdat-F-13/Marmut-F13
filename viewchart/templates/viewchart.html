@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- All the above is necessary for Bootstrap to function in this snippet -->
+        <title>Chart Top Twenty</title>
+        <style>
+            
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #AF8C90; /* Add this line */
+            }
+
+            header {
+                background-color: #09173E;
+                display: flex;
+                justify-content: space-between;
+                padding: 20px;
+                align-items: center;
+            }
+            .header-left {
+                display: flex;
+                align-items: center;
+            }
+            .header-left img {
+                margin-right: 20px;
+            }
+            .header-right img {
+                width: 100%;
+                float: right;
+            }
+            
+
+        </style>
+</head>
+    <body>
+        
+        <header>
+            <div class="header-left">
+                <a href="javascript:history.back()" id="back-button">
+                    <img src="{% static 'back.svg' %}" alt="Back Button">
+                </a>
+                <div class="center-content" style="color: #FCF4E1;">
+                    <h1>CHARTS</h1>
+                    <h2>Marmut’s got the groove with the hottest hits and coolest beats, bringing joy to your ears and rhythm to your feet!</h2>   
+                </div>
+            </div>
+            <div class="header-right">
+                <img src="{% static 'cover.svg' %}" alt="Chart Cover" style="width: 100%; border-radius: 10%;">
+            </div>
+        </header>
+        <div class="container" style="margin-top: 0.5cm;">
+            <div class="row">
+            <!-- Card 1 -->
+                <div class="col-sm-6 mb-3">
+                    <div class="card" style="background-color: #D9D9D9; border-radius: 15px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img class="card-img-top" src="{% static 'dt20.svg' %}" alt="Daily Top" style="width: 100%; margin: auto;">
+                                </div>
+                                <div class="col-8 d-flex flex-column justify-content-center"> <!-- Add d-flex flex-column justify-content-center to center the content -->
+                                    <h5 class="card-title">Daily Top 20</h5>
+                                    <p class="card-text">Your daily dose of chart-toppers!</p>
+                                    <div class="text-right">
+                                        <a href="dailypage"> <!-- Set href to the desired page -->
+                                            <img src="{% static 'view.svg' %}" alt="View"> <!-- Replace the text with an image -->
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+     
+            <!-- Card 2 -->
+            <div class="col-sm-6 mb-3">
+                <div class="card" style="background-color: #D9D9D9; border-radius: 15px;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <img class="card-img-top" src="{% static 'wt20.svg' %}" alt="Weekly Top" style="width: 100%; margin: auto;">
+                            </div>
+                            <div class="col-8 d-flex flex-column justify-content-center"> <!-- Add d-flex flex-column justify-content-center to center the content -->
+                                <h5 class="card-title">Weekly Top 20</h5>
+                                <p class="card-text">A week’s worth of hits in one place!</p>
+                                <div class="text-right">
+                                    <a href="weeklypage"> <!-- Set href to the desired page -->
+                                        <img src="{% static 'view.svg' %}" alt="View"> <!-- Replace the text with an image -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-sm-6 mb-3">
+                <div class="card" style="background-color: #D9D9D9; border-radius: 15px;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <img class="card-img-top" src="{% static 'mt20.svg' %}" alt="Monthly Top" style="width: 100%; margin: auto;">
+                            </div>
+                            <div class="col-8 d-flex flex-column justify-content-center"> <!-- Add d-flex flex-column justify-content-center to center the content -->
+                                <h5 class="card-title">Monthly Top 20</h5>
+                                <p class="card-text">The month’s biggest tunes, all for you!</p>
+                                <div class="text-right">
+                                    <a href="monthlypage"> <!-- Set href to the desired page -->
+                                        <img src="{% static 'view.svg' %}" alt="View"> <!-- Replace the text with an image -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-sm-6 mb-3">
+                <div class="card" style="background-color: #D9D9D9; border-radius: 15px;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <img class="card-img-top" src="{% static 'yt20.svg' %}" alt="Yearly Top" style="width: 100%; margin: auto;">
+                            </div>
+                            <div class="col-8 d-flex flex-column justify-content-center"> <!-- Add d-flex flex-column justify-content-center to center the content -->
+                                <h5 class="card-title">Yearly Top 20</h5>
+                                <p class="card-text">Yearly Top 20: A year of hits wrapped up!</p>
+                                <div class="text-right">
+                                    <a href="yearlypage"> <!-- Set href to the desired page -->
+                                        <img src="{% static 'view.svg' %}" alt="View"> <!-- Replace the text with an image -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+        
+    </body>
+    </html>
