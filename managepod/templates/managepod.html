@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- All the above is necessary for Bootstrap to function in this snippet -->
+        <title>Manage Podcast</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #6D7DB1; /* Add this line */
+            }
+
+            header {
+                background-color: #162350;
+                display: flex;
+                justify-content: space-between;
+                padding: 20px;
+                align-items: center;
+            }
+            .header-left {
+                display: flex;
+                align-items: center;
+            }
+            .header-left img {
+                margin-right: 20px;
+            }
+            .header-right img {
+                width: 100%;
+                float: right;
+            }
+            .modal-content {
+                display: none;
+            }
+            
+            .podcast-title {
+                color: #FDF1DA;
+            }
+
+            #modal {
+                background-color: #09173E; /* Warna latar belakang modal */
+                color: white; /* Warna tulisan */
+                /* Anda bisa menambahkan style lainnya untuk modal di sini */
+            }
+
+            #about-btn {
+                background: transparent; /* Makes the button background transparent */
+                border: none; /* Removes the border */
+            }
+
+        </style>
+</head>
+    <body>
+        
+        <header>
+            <div class="header-left">
+                <a href="javascript:history.back()" id="back-button">
+                    <img src="{% static 'back.svg' %}" alt="Back Button">
+                </a>
+                <div class="center-content" style="color: #FDF1DA;">
+                    <h1>YOUR Podcast</h1>
+                    <h2>Share lots of great thoughts with your listeners!</h2>
+                    
+                    <button id="about-btn">
+                        <img src="{% static 'addpod.svg' %}" alt="Add Button">
+                    </button>                    
+                    
+                </div>
+            </div>
+            <div class="header-right">
+                <img src="{% static 'cover.svg' %}" alt="Podcast Cover" style="width: 100%; border-radius: 10%;">
+            </div>
+        </header>
+
+        <div class="container" style="margin-top: 1cm;">
+            <h2 class="podcast-title">YOUR List of Creativity!</h2>
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-sm-4">
+                    <div class="card" style="background-color: #FDF1DA; border-radius: 15px;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"><b>PODCAST 1</b></h5>
+                            <img class="card-img-top" src="{% static 'pod1.svg' %}" alt="Episode 1" style="width: 80%; margin: auto; border-radius: 15px;">
+                            <p><small class="text-muted">5 eps. | 100 min.</small></p>
+                            
+                            <!-- Buttons -->
+                            <button type="button" style="background-color: transparent; border: none;">
+                                <img src="{% static 'vieweps.svg' %}" alt="View Episodes">
+                            </button>
+
+                            <button type="button" style="background-color: transparent; border: none;">
+                                <img src="{% static 'addeps.svg' %}" alt="Add Episode">
+                            </button>
+
+                            <button type="button" style="background-color: transparent; border: none;">
+                                <img src="{% static 'delete.svg' %}" alt="Delete">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-sm-4">
+                    <div class="card" style="background-color: #FDF1DA; border-radius: 15px;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"><b>PODCAST 2</b></h5>
+                            <img class="card-img-top" src="{% static 'pod2.svg' %}" alt="Episode 1" style="width: 80%; margin: auto; border-radius: 15px;">
+                            <p><small class="text-muted">5 eps. | 100 min.</small></p>
+                            
+                            <!-- Buttons -->
+                            <button type="button" style="background-color: transparent; border: none;">
+                                <img src="{% static 'vieweps.svg' %}" alt="View Episodes">
+                            </button>
+
+                            <button type="button" style="background-color: transparent; border: none;">
+                                <img src="{% static 'addeps.svg' %}" alt="Add Episode">
+                            </button>
+
+                            <button type="button" style="background-color: transparent; border: none;">
+                                <img src="{% static 'delete.svg' %}" alt="Delete">
+                            </button>
+                        </div>
+                    </div>
+                </div>     
+
+            </div>
+        </div>
+        
+        
+    </body>
+    </html>

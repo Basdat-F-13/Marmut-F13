@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- All the above is necessary for Bootstrap to function in this snippet -->
+        <title>Podcast Form</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #09173E;
+            }
+            .card {
+                background-color: #FDF1DA;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+                width: 50vw; /* 50% of the viewport width */
+                height: 50vh; /* 70% of the viewport height */
+                overflow: auto; /* Add a scrollbar if the content is too long */
+            }
+            form {
+                margin: 0;
+            }
+
+            h2 {
+                text-align: center; /* Center the heading */
+                margin-bottom: 20px; /* Add some space below the heading */
+            }
+
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+            }
+            input[type="submit"] {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: #333366;
+                color: white;
+                cursor: pointer;
+            }
+            input[type="submit"]:hover {
+                background-color: #444477;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <div class="card">
+        <h2>Create Podcast</h2>
+        <form action="/submit_podcast" method="post">
+          <label for="title">Title:</label><br>
+          <input type="text" id="title" name="title"><br>
+          <label for="genre">Genre:</label><br>
+          <input type="text" id="genre" name="genre"><br>
+          <label for="duration">Duration:</label><br>
+          <input type="text" id="duration" name="duration"><br>
+          <input type="submit" value="Submit">
+        </form> 
+    </div>
+    
+    </body>
+    </html>
