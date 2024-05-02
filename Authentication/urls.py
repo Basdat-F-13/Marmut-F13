@@ -5,4 +5,6 @@ app_name = 'Authentication'
 
 urlpatterns = [
     path('', showLoginPage, name='login'),
+    path('auth', showAuthNav, name='auth_nav'),
+    path('nav', showNav, name='nav'),
 ]
