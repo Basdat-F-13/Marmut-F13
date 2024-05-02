@@ -1,0 +1,232 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Playlist</title>
+    <style>
+        body{
+            background: url("https://cdn.discordapp.com/attachments/1020337769505116261/1235238329948049448/background1.jpg?ex=6633a4d7&is=66325357&hm=3fe09b6aecaa886440ee1d6d1b7daadb9b44ede781b29fda118099919b152e01&"); 
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
+    
+        .list-playlist {
+            background-color: #FDF2DE; 
+            width: 80%; 
+            padding: 20px;
+            border-radius: 8px;
+        }
+    
+        .tbtn {
+            background-color: transparent;
+            color: #09173E;
+            padding: 8px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 120px; 
+            display: block;
+            margin: 4px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    
+        .tbtn:hover{
+            background-color: #09173E;
+            color: #FDF2DE;
+        }
+        
+        .add-btn{
+            background-color:#09173E;
+            color: #FDF2DE;
+            padding: 8px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 300px; 
+            display: block;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    
+        .add-btn:hover{
+            background-color: #FDF2DE;
+            color: #09173E;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #09173E;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #6D7DB1;
+            width: 80%;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #6D7DB1;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #FDF2DE;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-family: SangBleu;
+            color: #FDF2DE;
+            font-size: large;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .modal-body {
+            margin-top: 20px;
+        }
+
+        .modal-body input[type="text"],
+        .modal-body textarea {
+            font-family: "TT Wellingtons";
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #6D7DB1;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .modal-footer {
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .modal-footer button {
+            background-color: #6D7DB1;
+            color: #FDF2DE;
+            padding: 8px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 120px; 
+            margin: 0 5px;
+            border: none;
+        }
+
+        .modal-footer button:hover {
+            background-color: #FDF2DE;
+            color: #6D7DB1;
+        }
+    </style>
+</head>
+<body>
+    <div class="list-playlist">
+        <h4 style="font-family: SangBleu; text-align: center; color: #09173E; font-size: 25px ; font-weight: bold;">USER PLAYLIST</h5>
+        <table style="width: 80%; margin: 20px auto; border-collapse: collapse; background-color: #FDF2DE; border: 2px solid #09173E; border-radius: 8px;">
+            <thead>
+                <tr>
+                    <th style="background-color: #09173E; color: #FDF2DE; font-size: 16px; font-weight: bold; padding: 10px;">Judul</th>
+                    <th style="background-color: #09173E; color: #FDF2DE; font-size: 16px; font-weight: bold; padding: 10px;">Jumlah Lagu</th>
+                    <th style="background-color: #09173E; color: #FDF2DE; font-size: 16px; font-weight: bold; padding: 10px;">Total Durasi</th>
+                    <th style="background-color: #09173E; color: #FDF2DE; font-size: 16px; font-weight: bold; padding: 10px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">Playlist1</td>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">0</td>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">0 menit</td>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">
+                        <button class="tbtn">Detail</button>
+                        <button class="tbtn">Ubah</button>
+                        <button class="tbtn">Hapus</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">Playlist2</td>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">2</td>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">4 menit</td>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">
+                        <button class="tbtn">Detail</button>
+                        <button class="tbtn">Ubah</button>
+                        <button class="tbtn">Hapus</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="add-btn" class="add-btn">Tambah Playlist</button>
+    </div>
+
+    <div id="addPlaylistModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>Tambah Playlist</h2>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="text" placeholder="Judul" id="judul">
+                    <textarea placeholder="Deskripsi" id="deskripsi" ></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="submitBtn">Submit</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    var modal = document.getElementById("addPlaylistModal");
+    var btn = document.getElementById("add-btn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    var submitBtn = document.getElementById("submitBtn");
+    submitBtn.onclick = function() {
+        //kosong
+        modal.style.display = "none";
+    }
+</script>
+</html>
