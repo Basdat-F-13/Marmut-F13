@@ -6,3 +6,6 @@ def showManagePlaylistPage(request):
 
 def showPlaylistPage(request):
     return render(request,"userplaylistdetail.html",{} )
+
+def showPlayingSongPage(request):
+    return render(request,"playsong.html",{} )

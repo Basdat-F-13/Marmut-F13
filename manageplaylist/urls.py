@@ -5,5 +5,6 @@ app_name = 'manageplaylist'
 
 urlpatterns = [
     path('', showManagePlaylistPage, name='manageplaylist'),
-    path('playlistdetail/', showPlaylistPage, name='userplaylistdetail')
+    path('playlistdetail/', showPlaylistPage, name='userplaylistdetail'),
+    path('playingsong/', showPlayingSongPage, name='playingsong')
 ]
