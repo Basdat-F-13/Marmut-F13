@@ -8,14 +8,106 @@
             content="width=device-width, initial-scale=1.0"
         />
         <script src="https://cdn.tailwindcss.com"></script>
-       
+        <script>
+            tailwind.config = {
+              theme: {
+                extend: {
+                  colors: {
+                    oxfordBlue: '#09173E',
+                    glaucous: '#6D7DB1',
+                    rosyBrown: '#AF8C90',
+                    lightOrange: '#FADCBA',
+                    peach: '#FBC797',
+                    spaceCadet: '#0F1C46',
+                    sunset: '#FDD8A1',
+                  }
+                }
+              }
+            }
+          </script>
         {% block meta %}
         {% endblock meta %}
     </head>
 
-    <body>  
+    <body>
+        <nav class="bg-oxfordBlue border-gray-200">
+            <!-- Tampilan Logo -->
+            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <a href="" class="flex items-center space-x-3">
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">MARMUT F13</span>
+                </a>
+
+                
+                <!-- Website Menu -->
+                <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+                    <ul class="flex flex-col font-medium p-4 mt-4 border border-white rounded-lg md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-blue">
+                        <li>
+                            <a href="#" class="block py-2 px-3 text-peach bg-peach rounded md:bg-transparent md:text-peach md:p-0" aria-current="page">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Chart</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Subscription</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="relative flex w-full gap-2 w-max order-2">
+                    <div class="relative h-10 w-full min-w-[288px] h-full">
+                    <input type="search"
+                        class="peer h-full w-full rounded-[7px] border border-white bg-transparent px-3 py-2.5 pr-20 text-sm text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-white focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        placeholder=" "/>
+                    <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight !text-white transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-white before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-white after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-white peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-white peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-white peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Type here...
+                    </label>
+                    </div>
+                    <button
+                    class="!absolute right-1 top-1 select-none rounded bg-white py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-blue-gray-900 shadow-md shadow-blue-gray-500/10 transition-all hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="button">
+                    Search
+                    </button>
+                </div>
+
+                <!-- User Navigation -->
+                <div class="flex items-center order-3 space-x-3">
+                    <button type="button" class="flex text-sm rounded-full md:me-0 focus:ring-4 focus:ring-rosyBrown" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                    <span class="sr-only">User Settings</span>
+                    <img class="w-8 h-8 rounded-full" src="https://imagizer.imageshack.com/img923/3154/OOfvJf.png" alt="user photo">
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div class="z-50 hidden my-4 text-base list-none bg-spaceCadet divide-y divide-gray-100 rounded-lg shadow" id="user-dropdown">
+                        <div class="px-4 py-3">
+                            <span class="block text-sm text-white">Kelvin Saputra</span>
+                            <span class="block text-sm  text-peach truncate">kelvin.saputra@marmut.co.id</span>
+                        </div>
+                        <ul class="py-2" aria-labelledby="user-menu-button">
+                            <li>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Dashboard</a>
+                            </li>
+                            <li>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Album</a>
+                            </li>
+                            <li>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Royalty Check</a>
+                            </li>
+                            <li>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-peach rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-rosyBrown" aria-controls="navbar-user" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                    </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
         {% block content %}
         
         {% endblock content %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     </body>
 </html>
