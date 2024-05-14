@@ -24,3 +24,25 @@ def showNav(request):
         'label' : False
     }
     return render(request, "base.html", context)
+
+def showRegister(request):
+    context = {
+        'show_navbar' : False,
+    }
+    return render(request, "register.html", context)
+
+def showUserRegPage(request):
+    context = {
+        'show_navbar' : False,
+        'user' : True,
+        'label' : False
+    }
+    return render(request, "userReg.html", context)
+
+def showLabelRegPage(request):
+    context = {
+        'show_navbar' : False,
+        'user' : False,
+        'label' : True
+    }
+    return render(request, "labelReg.html", context)
