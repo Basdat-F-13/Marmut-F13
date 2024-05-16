@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="flex items-center mx-auto my-0 bg-gradient-to-b from-oxfordBlue to-glaucous">
+    <div class="w-1/4 rounded-lg shadow-2xl">
+        <div class="p-4 md:p-12 text-center lg:text-left text-peach">
+            <img src="https://imagizer.imageshack.com/img923/3154/OOfvJf.png" class="rounded-none lg:rounded-lg shadow-2xl" style="width: 250px; height: 300px;">
+            <h1 class="text-3xl font-bold pt-8 lg:pt-0">Taylor Swift</h1>
+            <p class="pt-2 text-xs">taylor.swift@gmail.com</p>
+            <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-spaceCadet opacity-25"></div>
+            <p class="pt-4 text-base font-bold">SONGWRITER</p>
+            <p class="pt-2 text-sm">
+                <svg class="h-4 fill-current text-spaceCadet pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M10 20a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm7.75-8a8.01 8.01 0 0 0 0-4h-3.82a28.81 28.81 0 0 1 0 4h3.82zm-.82 2h-3.22a14.44 14.44 0 0 1-.95 3.51A8.03 8.03 0 0 0 16.93 14zm-8.85-2h3.84a24.61 24.61 0 0 0 0-4H8.08a24.61 24.61 0 0 0 0 4zm.25 2c.41 2.4 1.13 4 1.67 4s1.26-1.6 1.67-4H8.33zm-6.08-2h3.82a28.81 28.81 0 0 1 0-4H2.25a8.01 8.01 0 0 0 0 4zm.82 2a8.03 8.03 0 0 0 4.17 3.51c-.42-.96-.74-2.16-.95-3.51H3.07zm13.86-8a8.03 8.03 0 0 0-4.17-3.51c.42.96.74 2.16.95 3.51h3.22zm-8.6 0h3.34c-.41-2.4-1.13-4-1.67-4S8.74 3.6 8.33 6zM3.07 6h3.22c.2-1.35.53-2.55.95-3.51A8.03 8.03 0 0 0 3.07 6z"></path>
+                </svg>
+                New York, USA
+            </p>
+            <p class="pt-8 text-sm"></p>
+        </div>
+    </div>
+
+    <!-- Tabel -->
+    <div class="w-3/4 overflow-auto">
+        <table class="w-full min-w-max table-auto text-left">
+            <thead>
+              <th colspan="6" class="border-y text-center border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                  <p class="block antialiased font-sans text-sm text-lightOrange font-normal leading-none opacity-70">ROYALTY LIST</p>
+              </th>
+              <tr>
+                <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                  <p class="block antialiased font-sans text-sm text-lightOrange font-normal leading-none opacity-70">Song</p>
+                </th>
+                <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                  <p class="block antialiased font-sans text-sm text-lightOrange font-normal leading-none opacity-70">Album</p>
+                </th>
+                <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                  <p class="block antialiased font-sans text-sm text-lightOrange font-normal leading-none opacity-70">Total Play</p>
+                </th>
+                <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                  <p class="block antialiased font-sans text-sm text-lightOrange font-normal leading-none opacity-70">Total Downlaod</p>
+                </th>
+                <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                  <p class="block antialiased font-sans text-sm text-lightOrange font-normal leading-none opacity-70">Royalty Rate</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="flex items-center gap-3">
+                    <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
+                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">Fortnight</p>
+                  </div>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">The Tortured Poets Department: The Anthology</p>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">47.459.000</p>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="w-max">
+                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
+                      <span class="">45.124.593</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="flex items-center gap-3">
+                    <div class="flex flex-col">
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal capitalize">Rp
+                      </p>
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal opacity-80">8.039.143.000</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="flex items-center gap-3">
+                    <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
+                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">The Tortured Poets Department</p>
+                  </div>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">The Tortured Poets Department: The Anthology</p>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">5.197.943</p>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="w-max">
+                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
+                      <span class="">4.323.429</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="flex items-center gap-3">
+                    <div class="flex flex-col">
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal capitalize">Rp
+                      </p>
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal opacity-80">1.134.432.000</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="flex items-center gap-3">
+                    <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
+                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">Down Bad</p>
+                  </div>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">The Tortured Poets Department: The Anthology</p>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">5.129.234</p>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="w-max">
+                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
+                      <span class="">4.124.593</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="flex items-center gap-3">
+                    <div class="flex flex-col">
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal capitalize">Rp                      </p>
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal opacity-80">1.109.582.000</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="flex items-center gap-3">
+                    <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
+                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">Guilty as Sin</p>
+                  </div>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">The Tortured Poets Department: The Anthology</p>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">3.230.032</p>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="w-max">
+                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
+                      <span class="">3.002.459</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="flex items-center gap-3">
+                    <div class="flex flex-col">
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal capitalize">Rp
+                      </p>
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal opacity-80">893.256.000</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-4">
+                  <div class="flex items-center gap-3">
+                    <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
+                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">I Can Do It With a Broken Heart</p>
+                  </div>
+                </td>
+                <td class="p-4">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">The Tortured Poets Department: The Anthology</p>
+                </td>
+                <td class="p-4">
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">6.700.000</p>
+                </td>
+                <td class="p-4">
+                  <div class="w-max">
+                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
+                      <span class="">5.450.233</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-4">
+                  <div class="flex items-center gap-3">
+                    <div class="flex flex-col">
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal capitalize">Rp
+                      </p>
+                      <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal opacity-80">1.200.234.000</p>
+                    </div>
+                  </div>
+                </td>
+                {% comment %} <td class="p-4 border-b border-blue-gray-50">
+                  <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button">
+                    <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
+                        <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z"></path>
+                      </svg>
+                    </span>
+                  </button>
+                </td> {% endcomment %}
+              </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

@@ -11,141 +11,107 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="icon" href="lokasi/favicon.ico" type="image/x-icon">
-    <!-- All the above is necessary for Bootstrap to function in this snippet -->
-        <title>Podcast Sndy Foondy by Guinea Pig</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #09173E; /* Add this line */
-            }
+    <title>Podcast {{ title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #09173E; 
+        }
 
-            header {
-                background-color: #AF8C90;
-                display: flex;
-                justify-content: space-between;
-                padding: 20px;
-                align-items: center;
-            }
-            .header-left {
-                display: flex;
-                align-items: center;
-            }
-            .header-left img {
-                margin-right: 20px;
-            }
-            .header-right img {
-                width: 100%;
-                float: right;
-            }
-            .modal-content {
-                display: none;
-            }
-            
-            .podcast-title {
-                color: #FDF1DA;
-            }
-
-            #modal {
-                background-color: #09173E; /* Warna latar belakang modal */
-                color: white; /* Warna tulisan */
-                /* Anda bisa menambahkan style lainnya untuk modal di sini */
-            }
-
-            #about-btn {
-                background: transparent; /* Makes the button background transparent */
-                border: none; /* Removes the border */
-            }
-
-        </style>
-</head>
-    <body>
+        header {
+            background-color: #AF8C90;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            align-items: center;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        .header-left img {
+            margin-right: 20px;
+        }
+        .header-right img {
+            width: 100%;
+            float: right;
+        }
+        .modal-content {
+            display: none;
+        }
         
-        <header>
-            <div class="header-left">
-                <a href="javascript:history.back()" id="back-button">
-                    <img src="{% static 'back.svg' %}" alt="Back Button">
-                </a>
-                <div class="center-content">
-                    <h1>Podcast</h1>
-                    <h2>Sndy Foondy</h2>
-                    <h3>by Guinea Pig</h3>
-                    <button id="about-btn">
-                        <img src="{% static 'about.svg' %}" alt="About Button">
-                    </button>                    
-                    <div id="modal" class="modal-content">
-                        <p>Genre: xxxxxx</p>
-                        <p>Total durasi: xxxxxx</p>
-                        <p>Tanggal rilis: xxxxx</p>
-                        <p>Tahun: xxxxx</p>
-                    </div>
+        .podcast-title {
+            color: #FDF1DA;
+        }
+
+        #modal {
+            background-color: #09173E; 
+            color: white; 
+        }
+
+        #about-btn {
+            background: transparent; 
+            border: none; 
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <a href="javascript:history.back()" id="back-button">
+                <img src="{% static 'back.svg' %}" alt="Back Button">
+            </a>
+            <div class="center-content">
+                <h1>Podcast</h1>
+                <h2>{{ title }}</h2>
+                <h3>by {{ podcaster }}</h3>
+                <button id="about-btn">
+                    <img src="{% static 'about.svg' %}" alt="About Button">
+                </button>                    
+                <div id="modal" class="modal-content">
+                    <p>Genre: {{ genre }}</p>
+                    <p>Total durasi: {{ total_duration }}</p>
+                    <p>Tanggal rilis: {{ release_date }}</p>
+                    <p>Tahun: {{ year }}</p>
                 </div>
-            </div>
-            <div class="header-right">
-                <img src="{% static 'coverppod.svg' %}" alt="Podcast Cover" style="width: 100%; border-radius: 10%;">
-            </div>
-        </header>
-
-        <div class="container" style="margin-top: 1cm;">
-            <h2 class="podcast-title">Podcast's Episodes</h2>
-            <div class="row">
-                <!-- Card 1 -->
-                <div class="col-sm-4">
-                    <div class="card" style="background-color: #FDF1DA; border-radius: 15px;"> <!-- Add border-radius for rounded corners -->
-                        <div class="card-body text-center"> <!-- Add text-center for center alignment -->
-                            <h5 class="card-title">SF: Title 1</h5> <!-- Title above the image -->
-                            <img class="card-img-top" src="{% static 'cov1.svg' %}" alt="Episode 1" style="width: 80%; margin: auto;"> <!-- Reduce image size and center it -->
-                            <p class="card-text">Lorem ipsum...............</p>
-                            <p><small class="text-muted">59 min | 18 March 2024</small></p>
-                            <a href="#" class="btn btn-primary">Play</a>
-                            <a href="#" class="btn btn-secondary">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="col-sm-4">
-                    <div class="card" style="background-color: #FDF1DA; border-radius: 15px;"> <!-- Add border-radius for rounded corners -->
-                        <div class="card-body text-center"> <!-- Add text-center for center alignment -->
-                            <h5 class="card-title">SF: Title 2</h5> <!-- Title above the image -->
-                            <img class="card-img-top" src="{% static 'cov2.svg' %}" alt="Episode 2" style="width: 80%; margin: auto;"> <!-- Reduce image size and center it -->
-                            <p class="card-text">Lorem ipsum...............</p>
-                            <p><small class="text-muted">59 min | 18 March 2024</small></p>
-                            <a href="#" class="btn btn-primary">Play</a>
-                            <a href="#" class="btn btn-secondary">+</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="col-sm-4">
-                    <div class="card" style="background-color: #FDF1DA; border-radius: 15px;"> <!-- Add border-radius for rounded corners -->
-                        <div class="card-body text-center"> <!-- Add text-center for center alignment -->
-                            <h5 class="card-title">SF: Title 3</h5> <!-- Title above the image -->
-                            <img class="card-img-top" src="{% static 'cov3.svg' %}" alt="Episode 3" style="width: 80%; margin: auto;"> <!-- Reduce image size and center it -->
-                            <p class="card-text">Lorem ipsum...............</p>
-                            <p><small class="text-muted">59 min | 18 March 2024</small></p>
-                            <a href="#" class="btn btn-primary">Play</a>
-                            <a href="#" class="btn btn-secondary">+</a>
-                        </div>
-                    </div>
-                </div> 
-
             </div>
         </div>
-        
+        <div class="header-right">
+            <img src="{% static 'coverppod.svg' %}" alt="Podcast Cover" style="width: 100%; border-radius: 10%;">
+        </div>
+    </header>
 
+    <div class="container" style="margin-top: 1cm;">
+        <h2 class="podcast-title">Podcast's Episodes</h2>
+        <div class="row">
+            {% for episode in episodes %}
+            <div class="col-sm-4 mb-3">
+                <div class="card" style="background-color: #FDF1DA; border-radius: 15px;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ episode.title }}</h5>
+                        <img class="card-img-top" src="{% static episode.image %}" alt="Episode Image" style="width: 50%; margin: auto;">
+                        <p class="card-text">{{ episode.description }}</p>
+                        <p><small class="text-muted">{{ episode.duration }} | {{ episode.release_date }}</small></p>
+                        <a href="#" class="btn btn-primary">Play</a>
+                        <a href="#" class="btn btn-secondary">+</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-        <script>
-            document.getElementById("about-btn").addEventListener("click", function() {
-                var modal = document.getElementById("modal");
-                if (modal.style.display === "none") {
-                    modal.style.display = "block";
-                } else {
-                    modal.style.display = "none";
-                }
-            });
-        </script>
-    </body>
-    </html>
-    
-    {% endblock %}
+    <script>
+        document.getElementById("about-btn").addEventListener("click", function() {
+            var modal = document.getElementById("modal");
+            if (modal.style.display === "none") {
+                modal.style.display = "block";
+            } else {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

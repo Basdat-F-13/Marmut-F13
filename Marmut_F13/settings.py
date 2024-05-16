@@ -79,12 +79,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #    'ENGINE'    : 'django.db.backends.postgresql',
-    #    'NAME'       : '<database_name>',
-    #    'USER'       : '<database_username>',
-    #    'PASSWORD'   : '<password>',
-    #    'HOST'       : '<database_hostname_or_ip>',
-    #    'PORT'       : '<database_port>',
+       'ENGINE'     : 'django.db.backends.postgresql_psycopg2',
+       'NAME'       : 'postgres',
+       'USER'       : 'postgres.llzlkweenzlgbpgkbnbd',
+       'PASSWORD'   : 'marmut13basdatf',
+       'HOST'       : 'aws-0-ap-southeast-1.pooler.supabase.com',
+       'PORT'       : '5432',
+       'OPTIONS': {
+            'options': '-c search_path=marmut'
+        },
     }
 }
 
