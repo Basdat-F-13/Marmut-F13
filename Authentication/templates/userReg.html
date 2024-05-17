@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="flex justify-between">
+    <div class="hidden bg-cover lg:block lg:w-1/3" style="background-image:url('https://i.ibb.co.com/C6JMXmd/user.jpg')">
+    </div>
+    <div class="w-2/3 p-8" style="background-image: url('https://i.ibb.co.com/Yb6PQ9F/Desktop-1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;">
+        <h2 class="text-5xl font-bold mb-8 text-lightOrange text-center">REGISTRASI</h2>
+        <form class="space-y-4" method="post" action="{% url 'Authentication:register-user' %}">
+            {% csrf_token %}
+            <div class="flex flex-col">
+                <label for="email" class="text-sm mb-1 text-lightOrange">Email:</label>
+                <input type="email" id="email" name="email" class="rounded border py-2 px-3" required>
+            </div>
+            <div class="flex flex-col">
+                <label for="password" class="text-sm mb-1 text-lightOrange">Password:</label>
+                <input type="password" id="password" name="password" class="rounded border py-2 px-3" required>
+            </div>
+            <div class="flex flex-col">
+                <label for="nama" class="text-sm mb-1 text-lightOrange">Nama:</label>
+                <input type="text" id="nama" name="nama" class="rounded border py-2 px-3" required>
+            </div>
+            <div class="flex flex-col">
+                <label for="gender" class="text-sm mb-1 text-lightOrange">Gender:</label>
+                <select id="gender" name="gender" class="rounded border py-2 px-3" required>
+                    <option value="Laki-laki" class="text-lightOrange">Laki-laki</option>
+                    <option value="Perempuan" class="text-lightOrange">Perempuan</option>
+                </select>
+            </div>
+            <div class="flex flex-col">
+                <label for="tempat_lahir" class="text-sm mb-1 text-lightOrange">Tempat Lahir:</label>
+                <input type="text" id="tempat_lahir" name="tempat_lahir" class="rounded border py-2 px-3" required>
+            </div>
+            <div class="flex flex-col">
+                <label for="tanggal_lahir" class="text-sm mb-1 text-lightOrange">Tanggal Lahir:</label>
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="rounded border py-2 px-3" required>
+            </div>
+            <div class="flex flex-col">
+                <label for="kota_asal" class="text-sm mb-1 text-lightOrange">Kota Asal:</label>
+                <input type="text" id="kota_asal" name="kota_asal" class="rounded border py-2 px-3" required>
+            </div>
+            <div class="flex flex-col">
+                <label class="text-sm mb-1 text-lightOrange">Role:</label>
+                <div class="flex items-center space-x-4">
+                    <input type="checkbox" id="podcaster" name="role" value="Podcaster" class="rounded border">
+                    <label for="podcaster" class="text-sm text-lightOrange" style="margin-right: 330px;">Podcaster</label>
+                    <input type="checkbox" id="artist" name="role" value="Artist" class="rounded border">
+                    <label for="artist" class="text-sm text-lightOrange" style="margin-right: 330px;">Artist</label>
+                    <input type="checkbox" id="songwriter" name="role" value="Songwriter" class="rounded border">
+                    <label for="songwriter" class="text-sm text-lightOrange">Songwriter</label>
+                </div>
+            </div>
+            <button type="submit" class="bg-oxfordBlue text-lightOrange py-2 px-4 rounded-full w-full hover:bg-glaucous">Register</button>
+        </form>
+        <button id="kembaliBtn" class="bg-glaucous text-lightOrange py-2 px-4 rounded-full hover:bg-oxfordBlue mt-4 block mx-auto">Kembali</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById("kembaliBtn").addEventListener("click", function() {
+        window.location.href = "{% url 'Authentication:login' %}";
+    });
+</script>
+{% endblock content %}

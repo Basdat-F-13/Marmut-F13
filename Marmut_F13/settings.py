@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'viewchart',
-
+    'managepod',
+    'Authentication',
+    'SongAlbum',
+    'manageplaylist',
 ]
 
 MIDDLEWARE = [
@@ -78,8 +81,6 @@ WSGI_APPLICATION = 'Marmut_F13.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
        'ENGINE'     : 'django.db.backends.postgresql_psycopg2',
        'NAME'       : 'postgres',
        'USER'       : 'postgres.llzlkweenzlgbpgkbnbd',
@@ -131,6 +132,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'viewchart/assets'
+    BASE_DIR / 'managepod/assets'
 ]
 
 # Default primary key field type
