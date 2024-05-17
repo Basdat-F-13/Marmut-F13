@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-lightOrange">
+    <div class="container mx-auto py-12">
+        <h1 class="text-4xl font-bold text-center mb-8">REGISTER AS</h1>
+        <div class="grid grid-cols-2 gap-8">
+            <div class="relative bg-white rounded-lg overflow-hidden shadow-md">
+                <a href="{% url 'Authentication:register-label' %}">
+                    <img src="https://i.ibb.co.com/8PBpVv2/label.jpg" alt="Image 1" class="w-full h-120 object-cover">
+                    <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-center text-white text-xl font-bold bg-black bg-opacity-50">
+                        LABEL
+                    </div>
+                </a>
+            </div>
+            <div class="relative bg-white rounded-lg overflow-hidden shadow-md">
+                <a href="{% url 'Authentication:register-user' %}">
+                    <img src="https://i.ibb.co.com/C6JMXmd/user.jpg" alt="Image 2" class="w-full h-120 object-cover">
+                    <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-center text-white text-xl font-bold bg-black bg-opacity-50">
+                        USER
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock content %}
