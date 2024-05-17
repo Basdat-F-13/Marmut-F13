@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>Podcast Form</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #6D7DB1;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            height: auto;
+            padding-top: 20px;
+        }
+        .card {
+            display: flex;
+            background-color: #FDF1DA;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            width: 50vw;
+            height: 50vh;
+            overflow: auto;
+        }
+        form {
+            margin: 0;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333366;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #444477;
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" id="back-button">
+        <img src="{% static 'back.svg' %}" alt="Back Button">
+    </a>
+    <div class="center">
+        <div class="card">
+            <h2>Create Podcast</h2>
+            <form action="{% url 'managepod:createpod' %}" method="post">
+                {% csrf_token %}
+                <label for="title">Title:</label><br>
+                <input type="text" id="title" name="title"><br>
+                <label for="genre">Genre:</label><br>
+                <input type="text" id="genre" name="genre"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
