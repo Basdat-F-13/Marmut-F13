@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'playpodcast',
     'viewchart',
     'managepod',
     'Authentication',
@@ -131,6 +132,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
+    BASE_DIR / 'playpodcast/assets'
     BASE_DIR / 'viewchart/assets'
     BASE_DIR / 'managepod/assets'
 ]
