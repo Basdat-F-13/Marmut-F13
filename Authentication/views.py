@@ -48,10 +48,10 @@ def showUserRegPage(request):
         tanggal_lahir = request.POST.get('tanggal_lahir')
         kota_asal = request.POST.get('kota_asal')
         roles = request.POST.getlist('role')
-        if len(roles) == 1:
-            verified = True
-        else:
+        if len(roles) == 0:
             verified = False
+        else:
+            verified = True
 
         with conn.cursor() as cursor:
             try:
@@ -63,15 +63,15 @@ def showUserRegPage(request):
                     elif i == "Artist":
                         cursor.execute('SELECT * FROM PEMILIK_HAK_CIPTA')
                         hak_cipta = cursor.fetchall()
-                        random_hak_cipta = str(random.choice(hak_cipta)[0])
+                        id_hak_cipta = str(random.choice(hak_cipta)[0])
                         id = str(uuid.uuid4())
-                        cursor.execute(f"INSERT INTO ARTIST(id, email_akun, id_pemilik_hak_cipta) values ('{id}', '{email}', '{random_hak_cipta}');")
+                        cursor.execute(f"INSERT INTO ARTIST(id, email_akun, id_pemilik_hak_cipta) values ('{id}', '{email}', '{id_hak_cipta}');")
                     elif i == "Songwriter":
                         cursor.execute('SELECT * FROM PEMILIK_HAK_CIPTA')
                         hak_cipta = cursor.fetchall()
-                        random_hak_cipta = str(random.choice(hak_cipta)[0])
+                        id_hak_cipta = str(random.choice(hak_cipta)[0])
                         id = str(uuid.uuid4())
-                        cursor.execute(f"INSERT INTO SONGWRITER(id, email_akun, id_pemilik_hak_cipta) values ('{id}', '{email}', '{random_hak_cipta}');")
+                        cursor.execute(f"INSERT INTO SONGWRITER(id, email_akun, id_pemilik_hak_cipta) values ('{id}', '{email}', '{id_hak_cipta}');")
                 
                 print('Registrasi berhasil!')
 
@@ -79,17 +79,14 @@ def showUserRegPage(request):
                 msg = str(e).split('\n')[0]
                 print( f'Registrasi gagal: {msg}')
                 return render(request, "register_pengguna.html")
-            
-            context = {
-                "is_logged_in": False
-            }
 
             return redirect('Authentication:login')
         
     context = {
         'show_navbar' : False,
         'user' : True,
-        'label' : False
+        'label' : False,
+        "is_logged_in": False
     }
     return render(request, "userReg.html", context)
 
@@ -106,8 +103,8 @@ def showLabelRegPage(request):
                 cursor.execute('set search_path to marmut')
                 cursor.execute('SELECT * FROM PEMILIK_HAK_CIPTA')
                 hak_cipta = cursor.fetchall()
-                random_hak_cipta = str(random.choice(hak_cipta)[0])
-                cursor.execute(f"INSERT INTO LABEL(id, nama, email, password, kontak, id_pemilik_hak_cipta) values ('{id}', '{nama}', '{email}', '{password}', '{kontak}', '{random_hak_cipta}')")
+                id_hak_cipta = str(random.choice(hak_cipta)[0])
+                cursor.execute(f"INSERT INTO LABEL(id, nama, email, password, kontak, id_pemilik_hak_cipta) values ('{id}', '{nama}', '{email}', '{password}', '{kontak}', '{id_hak_cipta}')")
             
             except Exception as e:
                 msg = str(e).split('\n')[0]
