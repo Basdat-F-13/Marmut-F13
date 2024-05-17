@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="flex justify-between h-screen">
+    
+    <div class="w-2/3 p-8 h-full flex flex-col justify-center" style="background-image: url('https://cdn.discordapp.com/attachments/1020337769505116261/1235560585479852042/Desktop_-_1.jpg?ex=6634d0f7&is=66337f77&hm=a9b5f1d34be685ed02d45b4827521eef48af6edc88c985a042fb06474e1fba10&')">
+        <h2 class="text-5xl font-bold mb-8 text-lightOrange text-center">REGISTRASI</h2>
+        <form class="space-y-4">
+            <div class="flex flex-col">
+                <label for="email" class="text-sm mb-1 text-lightOrange">Email:</label>
+                <input type="email" id="email" name="email" class="rounded border py-2 px-3" required>
+            </div>
+            <div class="flex flex-col">
+                <label for="password" class="text-sm mb-1 text-lightOrange">Password:</label>
+                <input type="password" id="password" name="password" class="rounded border py-2 px-3" required>
+            </div>
+            <div class="flex flex-col">
+                <label for="nama" class="text-sm mb-1 text-lightOrange">Nama:</label>
+                <input type="text" id="nama" name="nama" class="rounded border py-2 px-3" required>
+            </div>
+            <div class="flex flex-col">
+                <label for="kontak" class="text-sm mb-1 text-lightOrange">Kontak:</label>
+                <input type="text" id="kontak" name="kontak" class="rounded border py-2 px-3" required>
+            </div>
+            <button type="submit" class="bg-oxfordBlue text-lightOrange py-2 px-4 rounded-full w-full hover:bg-glaucous">Register</button>
+        </form>
+        <button id="kembaliBtn" class="bg-glaucous text-lightOrange py-2 px-4 rounded-full hover:bg-oxfordBlue mt-4 block mx-auto">Kembali</button>
+    </div>
+    <div class="hidden bg-cover lg:block lg:w-1/3" style="background-image:url('https://cdn.discordapp.com/attachments/1020337769505116261/1235553802866790431/60e8cc52-96bf-46e7-884f-1b3b6eb6da0a.jpg?ex=6634caa6&is=66337926&hm=22268cbf3be77a2b00feb410e760e09dbc88ab113de37c2736cad3dbb940ac00&')">
+    </div>
+</div>
+
+<script>
+    document.getElementById("kembaliBtn").addEventListener("click", function() {
+        window.location.href = "{% url 'Authentication:login' %}";
+    });
+</script>
+{% endblock content %}
