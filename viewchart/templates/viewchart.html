@@ -1,4 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
+
+{% block content %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,8 +42,7 @@
 
         </style>
 </head>
-    <body>
-        
+    <body>    
         <header>
             <div class="header-left">
                 <a href="javascript:history.back()" id="back-button">
@@ -151,3 +153,4 @@
         
     </body>
     </html>
+    {% endblock %}
