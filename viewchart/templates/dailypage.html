@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>Daily Top Twenty</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FDF2E0;
+        }
+
+        header {
+            background-color: #6D7DB0;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            align-items: center;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        .header-left img {
+            margin-right: 20px;
+        }
+        .header-right img {
+            width: 100%;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <a href="javascript:history.back()" id="back-button">
+                <img src="{% static 'back.svg' %}" alt="Back Button">
+            </a>
+            <div class="center-content" style="color: #FCF4E1;">
+                <h1>Daily Top 20</h1>
+                <h2>Your daily dose of chart-toppers!</h2>   
+            </div>
+        </div>
+        <div class="header-right">
+            <img src="{% static 'dt20.svg' %}" alt="Daily Cover" style="width: 100%; border-radius: 10%;">
+        </div>
+    </header>
+    <div class="container" style="margin-top: 0.5cm;">
+        <div class="row">
+            {% for song in songs %}
+            <div class="col-sm-12 mb-3">
+                <div class="card" style="background-color: #09173E; border-radius: 15px; height: 200px;">
+                    <div class="card-body d-flex align-items-center" style="font-size: 1.5em; color:#FCF4E1;">
+                        <div class="row w-100">
+                            <div class="col-4">
+                                <img class="card-img-top" src="{% static song.image %}" alt="Daily Top" style="width: 50%; margin: auto;">
+                            </div>
+                            <div class="col-8"> 
+                                <h5 class="card-title">by {{ song.artist }}</h5>
+                                <p class="card-text"><b>{{ song.title }}</b></p>
+                                <p><small class="text-muted">{{ song.total_plays }} plays | {{ song.release_date }}</small></p>
+                                <div class="text-right">
+                                    <a href="songpage"> <!-- Set href to the desired page -->
+                                        <img src="{% static 'viewsong.svg' %}" alt="View Song" style="width: 17%;"> <!-- Reduce the image size -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
