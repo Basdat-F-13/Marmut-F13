@@ -1,9 +1,8 @@
-from django.shortcuts import redirect, render
-import random, uuid
 from django.http import HttpResponseRedirect
 from django.db import connection, connections
 from django.urls import reverse
-
+from django.shortcuts import redirect, render
+import random, uuid
 
 # Fungsi yang digunakan untuk melakukan login
 def login(request):
@@ -262,5 +261,4 @@ def showLabelRegPage(request):
         'label' : True,
         'logged_in' : False,
     }
-
     return render(request, "labelReg.html", context)
