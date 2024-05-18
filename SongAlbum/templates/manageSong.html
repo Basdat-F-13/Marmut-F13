@@ -6,15 +6,23 @@
     <div class="w-1/4 shadow-2xl ">
         <div class="p-4 md:p-12 text-center lg:text-left text-peach">
             <img src="https://imagizer.imageshack.com/img923/3154/OOfvJf.png" class="rounded-none lg:rounded-lg shadow-2xl" style="width: 250px; height: 300px;">
-            <h1 class="text-3xl font-bold pt-8 lg:pt-0">Taylor Swift</h1>
-            <p class="pt-2 text-xs">taylor.swift@gmail.com</p>
-            <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-spaceCadet opacity-25"></div>
-            <p class="pt-4 text-base font-bold">ARTIST</p>
+            <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{user_name}}</h1>
+            <p class="pt-2 text-xs">{{user_email}}</p>
+            {% if user_role.artist and user_role.songwriter %}
+              <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
+              <p class="pt-4 text-base font-bold">ARTIST & SONGWRITER</p>
+            {% elif user_role.artist %}
+              <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
+              <p class="pt-4 text-base font-bold">ARTIST</p>
+            {% elif user_role.songwriter%}
+              <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
+              <p class="pt-4 text-base font-bold">SONGWRITER</p>
+            {% endif %}
             <p class="pt-2 text-sm">
                 <svg class="h-4 fill-current text-spaceCadet pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                     <path d="M10 20a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm7.75-8a8.01 8.01 0 0 0 0-4h-3.82a28.81 28.81 0 0 1 0 4h3.82zm-.82 2h-3.22a14.44 14.44 0 0 1-.95 3.51A8.03 8.03 0 0 0 16.93 14zm-8.85-2h3.84a24.61 24.61 0 0 0 0-4H8.08a24.61 24.61 0 0 0 0 4zm.25 2c.41 2.4 1.13 4 1.67 4s1.26-1.6 1.67-4H8.33zm-6.08-2h3.82a28.81 28.81 0 0 1 0-4H2.25a8.01 8.01 0 0 0 0 4zm.82 2a8.03 8.03 0 0 0 4.17 3.51c-.42-.96-.74-2.16-.95-3.51H3.07zm13.86-8a8.03 8.03 0 0 0-4.17-3.51c.42.96.74 2.16.95 3.51h3.22zm-8.6 0h3.34c-.41-2.4-1.13-4-1.67-4S8.74 3.6 8.33 6zM3.07 6h3.22c.2-1.35.53-2.55.95-3.51A8.03 8.03 0 0 0 3.07 6z"></path>
                 </svg>
-                New York, USA
+                {{ user_kota_asal }}
             </p>
             <p class="pt-8 text-sm"></p>
         </div>
@@ -22,9 +30,11 @@
     <div class="w-3/4 overflow-auto h-auto">
         <table class="w-full min-w-max table-auto text-left">
             <thead>
-              <th colspan="6" class="border-y text-center border-blue-gray-100 bg-blue-gray-50/50 p-4">
-                  <p class="block antialiased font-sans text-sm text-lightOrange font-normal leading-none opacity-70">SONG In the Album of The Tortured Poets Department: The Anthology</p>
-              </th>
+              {% for data in album %}
+                <th colspan="6" class="border-y text-center border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                  <p class="block antialiased font-sans text-sm text-lightOrange font-normal leading-none opacity-70">SONG In the Album of {{data.ALBUM_TITLE}}</p>
+                </th>
+              {% endfor %}
               <tr>
                 <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
                   <p class="block antialiased font-sans text-sm text-lightOrange font-normal leading-none opacity-70">Song Title</p>
@@ -44,191 +54,50 @@
               </tr>
             </thead>
             <tbody>
+              {% for data in songs %}
               <tr>
                 <td class="p-4 border-b border-blue-gray-50">
                   <div class="flex items-center gap-3">
                     <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
-                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">Fortnight</p>
+                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">{{ data.SONG_TITLE }}</p>
                   </div>
                 </td>
                 <td class="p-4 border-b border-blue-gray-50">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">4 Minutes</p>
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">{{ data.DURATION }} Minutes</p>
                 </td>
                 <td class="p-4 border-b border-blue-gray-50">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">47.459.000</p>
+                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">{{ data.TOTAL_PLAY }}</p>
                 </td>
                 <td class="p-4 border-b border-blue-gray-50">
                   <div class="w-max">
                     <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
-                      <span class="">45.124.593</span>
+                      <span class="">{{ data.TOTAL_DOWNLOAD }}</span>
                     </div>
                   </div>
                 </td>
                 <td class="p-4 border-b border-blue-gray-50">
+                  
                   <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
                         <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
                             <path d="M15 12c0 1.657-1.343 3-3 3s-3-1.343-3-3c0-.199.02-.393.057-.581 1.474.541 2.927-.882 2.405-2.371.174-.03.354-.048.538-.048 1.657 0 3 1.344 3 3zm-2.985-7c-7.569 0-12.015 6.551-12.015 6.551s4.835 7.449 12.015 7.449c7.733 0 11.985-7.449 11.985-7.449s-4.291-6.551-11.985-6.551zm-.015 12c-2.761 0-5-2.238-5-5 0-2.761 2.239-5 5-5 2.762 0 5 2.239 5 5 0 2.762-2.238 5-5 5z"/>
                           </svg>
                         </span>
-                      </button>
+                  </button>
+                  {% for a in album %}
+                  <a href="{% url 'SongAlbum:del_song' data.ID a.ID %}">
                     <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
-                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
-                            <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
-                          </svg>
-                        </span>
+                      <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
+                          <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
+                        </svg>
+                      </span>
                     </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <div class="flex items-center gap-3">
-                    <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
-                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">The Tortured Poets Department</p>
-                  </div>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">5 Minutes</p>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">5.197.943</p>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <div class="w-max">
-                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
-                      <span class="">4.323.429</span>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
-                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
-                            <path d="M15 12c0 1.657-1.343 3-3 3s-3-1.343-3-3c0-.199.02-.393.057-.581 1.474.541 2.927-.882 2.405-2.371.174-.03.354-.048.538-.048 1.657 0 3 1.344 3 3zm-2.985-7c-7.569 0-12.015 6.551-12.015 6.551s4.835 7.449 12.015 7.449c7.733 0 11.985-7.449 11.985-7.449s-4.291-6.551-11.985-6.551zm-.015 12c-2.761 0-5-2.238-5-5 0-2.761 2.239-5 5-5 2.762 0 5 2.239 5 5 0 2.762-2.238 5-5 5z"/>
-                          </svg>
-                        </span>
-                      </button>
-                    <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
-                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
-                            <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
-                          </svg>
-                        </span>
-                    </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <div class="flex items-center gap-3">
-                    <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
-                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">Down Bad</p>
-                  </div>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">4 Minutes</p>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">5.129.234</p>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <div class="w-max">
-                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
-                      <span class="">4.124.593</span>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                    <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
-                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
-                            <path d="M15 12c0 1.657-1.343 3-3 3s-3-1.343-3-3c0-.199.02-.393.057-.581 1.474.541 2.927-.882 2.405-2.371.174-.03.354-.048.538-.048 1.657 0 3 1.344 3 3zm-2.985-7c-7.569 0-12.015 6.551-12.015 6.551s4.835 7.449 12.015 7.449c7.733 0 11.985-7.449 11.985-7.449s-4.291-6.551-11.985-6.551zm-.015 12c-2.761 0-5-2.238-5-5 0-2.761 2.239-5 5-5 2.762 0 5 2.239 5 5 0 2.762-2.238 5-5 5z"/>
-                          </svg>
-                        </span>
-                      </button>
-                    <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
-                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
-                            <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
-                          </svg>
-                        </span>
-                    </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <div class="flex items-center gap-3">
-                    <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
-                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">Guilty as Sin</p>
-                  </div>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">4 Minutes</p>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">3.230.032</p>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <div class="w-max">
-                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
-                      <span class="">3.002.459</span>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-4 border-b border-blue-gray-50">
-                  <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
-                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
-                            <path d="M15 12c0 1.657-1.343 3-3 3s-3-1.343-3-3c0-.199.02-.393.057-.581 1.474.541 2.927-.882 2.405-2.371.174-.03.354-.048.538-.048 1.657 0 3 1.344 3 3zm-2.985-7c-7.569 0-12.015 6.551-12.015 6.551s4.835 7.449 12.015 7.449c7.733 0 11.985-7.449 11.985-7.449s-4.291-6.551-11.985-6.551zm-.015 12c-2.761 0-5-2.238-5-5 0-2.761 2.239-5 5-5 2.762 0 5 2.239 5 5 0 2.762-2.238 5-5 5z"/>
-                          </svg>
-                        </span>
-                      </button>
-                    <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
-                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
-                            <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
-                          </svg>
-                        </span>
-                    </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-4">
-                  <div class="flex items-center gap-3">
-                    <img src="https://imagizer.imageshack.com/v2/100x75q70/922/2LqQmT.png" class="inline-block relative object-center !rounded-full w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
-                    <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-bold">I Can Do It With a Broken Heart</p>
-                  </div>
-                </td>
-                <td class="p-4">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">4 Minutes</p>
-                </td>
-                <td class="p-4">
-                  <p class="block antialiased font-sans text-sm leading-normal text-lightOrange font-normal">6.700.000</p>
-                </td>
-                <td class="p-4">
-                  <div class="w-max">
-                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-400 text-green-900 py-1 px-2 text-xs rounded-md" style="opacity: 1;">
-                      <span class="">5.450.233</span>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-4 ">
-                    <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
-                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
-                            <path d="M15 12c0 1.657-1.343 3-3 3s-3-1.343-3-3c0-.199.02-.393.057-.581 1.474.541 2.927-.882 2.405-2.371.174-.03.354-.048.538-.048 1.657 0 3 1.344 3 3zm-2.985-7c-7.569 0-12.015 6.551-12.015 6.551s4.835 7.449 12.015 7.449c7.733 0 11.985-7.449 11.985-7.449s-4.291-6.551-11.985-6.551zm-.015 12c-2.761 0-5-2.238-5-5 0-2.761 2.239-5 5-5 2.762 0 5 2.239 5 5 0 2.762-2.238 5-5 5z"/>
-                          </svg>
-                        </span>
-                      </button>
-                    <button class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-lightOrange hover:bg-glaucous active:bg-rosyBrown" type="button">
-                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
-                            <path d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z" fill-rule="nonzero"/>
-                          </svg>
-                        </span>
-                    </button>
-                </td>
-              </tr>
+                  </a>
+                  {% endfor %}
+                  </td>
+                </tr>
+              {% endfor %}
               <td colspan="6" class="border-y text-center border-blue-gray-100 bg-blue-gray-50/50">
                 <div class="flex justify-end mr-4">
                   <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-peach hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-glaucous dark:hover:bg-peach dark:focus:ring-rosyBrown" type="button">
@@ -257,80 +126,75 @@
               </button>
           </div>
           <!-- Modal body -->
-          <form class="p-4 md:p-5">
-              <div class="grid gap-4 mb-4 grid-cols-2">
-                  <div class="col-span-2">
-                      <label for="title" class="block mb-2 text-sm font-medium text-lightOrange">Album Title</label>
-                      <input type="text" name="title" id="title" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="The Tortured Poets Department: The Anthology" required="" readonly>
-                  </div>
-                  <div class="col-span-2">
-                      <label for="title" class="block mb-2 text-sm font-medium text-lightOrange">Song Title</label>
-                      <input type="text" name="title" id="title" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type Song Title Here" required="">
-                  </div>
-                  <div class="col-span-2">
-                    <label for="label" class="block mb-2 text-sm font-medium text-lightOrange">Artist</label>
-                    {% comment %} <select id="label" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500">
+          {% for data in album %}
+          <form class="p-4 md:p-5" method="POST" action="{% url 'SongAlbum:add_song' data.ID %}">
+          {% endfor %}
+            {% csrf_token %}
+            <div class="grid gap-4 mb-4 grid-cols-2">
+              {% for data in album %}
+              <div class="col-span-2">
+                <label for="album" class="block mb-2 text-sm font-medium text-lightOrange">Album Title</label>
+                <input type="text" name="album" id="album" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ data.ALBUM_TITLE }}" readonly>
+              </div>
+              {% endfor %}
+                <div class="col-span-2">
+                    <label for="song-title" class="block mb-2 text-sm font-medium text-lightOrange">Song Title</label>
+                    <input type="text" name="song_title" id="song-title" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type Song Title Here" required="">
+                </div>
+                {% if user_role.artist %}
+                <div class="col-span-2">
+                    <label for="artist" class="block mb-2 text-sm font-medium text-lightOrange">Artist</label>
+                    <input type="text" name="artist" id="first-artist" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ user_name }}" readonly>
+                </div>
+                {% elif user_role.songwriter %}
+                <div class="col-span-2">
+                    <label for="artists" class="block mb-2 text-sm font-medium text-lightOrange">Artist</label>
+                    <select id="artists" name="artists" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         <option selected="">Select Artist</option>
-                        <option value="TV">Taylor Swift</option>
-                        <option value="PC">Erci Clapton</option>
-                        <option value="GA">Ariana Grande</option>
-                        <option value="PH">Post Malone</option>
-                    </select> {% endcomment %}
-                    <input type="text" name="title" id="title" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type Song Title Here" required="">
-                  </div>
-                  <div class="col-span-2">
+                        {% for data in artists %}
+                        <option value="{{ data.ID }}">{{ data.ARTIST_NAME }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+                <div class="col-span-2">
                     <label class="block mb-2 text-sm font-medium text-lightOrange">Songwriter</label>
                     <div class="grid grid-cols-2 gap-2">
+                        {% for data in songwriters %}
                         <div>
-                            <input type="checkbox" id="sony" name="label[]" value="TV" class="accent-lightOrange">
-                            <label for="sony" class="ml-2 text-sm text-lightOrange">Taylor Swift</label>
+                            <input type="checkbox" id="{{ data.SONGWRITER_NAME }}" name="songwriters[]" value="{{ data.ID }}" class="accent-lightOrange" {% if data.SONGWRITER_NAME == user_name %}checked{% endif %}>
+                            <label for="{{ data.SONGWRITER_NAME }}" class="ml-2 text-sm text-lightOrange">{{ data.SONGWRITER_NAME }}</label>
                         </div>
-                        <div>
-                            <input type="checkbox" id="vevo" name="label[]" value="PC" class="accent-lightOrange">
-                            <label for="vevo" class="ml-2 text-sm text-lightOrange">Post Malone</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="republic" name="label[]" value="GA" class="accent-lightOrange">
-                            <label for="republic" class="ml-2 text-sm text-lightOrange">Ariana Grande</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="atlantics" name="label[]" value="PH" class="accent-lightOrange">
-                            <label for="atlantics" class="ml-2 text-sm text-lightOrange">John Legends</label>
-                        </div>
+                        {% endfor %}
                     </div>
-                  </div>                
-                  <div class="col-span-2">
+                </div>
+                <div class="col-span-2">
                     <label class="block mb-2 text-sm font-medium text-lightOrange">Genre</label>
                     <div class="grid grid-cols-2 gap-2">
+                        {% for data in genres %}
                         <div>
-                            <input type="checkbox" id="sony" name="label[]" value="TV" class="accent-lightOrange">
-                            <label for="sony" class="ml-2 text-sm text-lightOrange">Pop</label>
+                            <input type="checkbox" id="{{ data.GENRE }}" name="genres[]" value="{{ data.GENRE }}" class="accent-lightOrange">
+                            <label for="{{ data.GENRE }}" class="ml-2 text-sm text-lightOrange">{{ data.GENRE }}</label>
                         </div>
-                        <div>
-                            <input type="checkbox" id="vevo" name="label[]" value="PC" class="accent-lightOrange">
-                            <label for="vevo" class="ml-2 text-sm text-lightOrange">Rock</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="republic" name="label[]" value="GA" class="accent-lightOrange">
-                            <label for="republic" class="ml-2 text-sm text-lightOrange">Soft Rock</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="atlantics" name="label[]" value="PH" class="accent-lightOrange">
-                            <label for="atlantics" class="ml-2 text-sm text-lightOrange">Blues</label>
-                        </div>
+                        {% endfor %}
                     </div>
-                    <div class="col-span-2">
-                        <label for="durasi" class="block mb-2 text-sm font-medium text-lightOrange">Durasi</label>
-                        <input type="text" name="durasi" id="durasi" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Duration in Minutes" required="">
-                    </div>
-                  </div>                
-              <div class="col-span-2 flex justify-end">
+                </div>
+                <div class="col-span-2">
+                    <label for="durasi" class="block mb-2 text-sm font-medium text-lightOrange">Duration</label>
+                    <input type="text" name="durasi" id="durasi" class="bg-glaucous border border-gray-300 text-lightOrange text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-glaucous dark:border-gray-500 placeholder-lightOrange dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Duration in Minutes" required="">
+                </div>
+            </div>
+            <div class="col-span-2 flex justify-end">
+              {% for data in album %}
+              <a href="{% url 'SongAlbum:add_song' data.ID %}">
                 <button type="submit" class="text-white inline-flex items-center bg-peach hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-glaucous dark:hover:bg-peach dark:focus:ring-blue-800">
-                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                    Add Song
+                  <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                  Add Songs
                 </button>
-              </div>
-          </form>
+              </a>
+              {% endfor %}
+            </div>
+        </form>
       </div>
   </div>
 </div> 
