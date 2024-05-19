@@ -10,27 +10,29 @@
     <title>Play Song</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body style="background-image: url('https://cdn.discordapp.com/attachments/1020337769505116261/1235538810838716488/Desktop_-_2.jpg?ex=6634bcaf&is=66336b2f&hm=5157af7139ddf0c2df42d589d7dffa8378ae166272c0a6bbd39abc842b42fa9f'); background-size: cover; background-position: center;">
+<body style="background-image: url('https://i.ibb.co.com/kmFyJGY/background1.jpg'); background-size: cover; background-position: center;">
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold text-center text-lightOrange mb-4">PLAY SONG</h1>
+        <h1 class="text-3xl font-bold text-center text-lightOrange mb-4">SONG DETAILS</h1>
         <div class="bg-peach rounded-lg shadow-md p-4 mb-4">
-            <p class="font-bold text-oxfordBlue">Judul: <span class="text-spaceCadet">Song1</span></p>
+            <p class="font-bold text-oxfordBlue">Judul: <span class="text-spaceCadet">{{detail.judul}}</span></p>
             <p class="font-bold text-oxfordBlue">Genre(s):</p>
             <ul class="list-disc pl-5">
-                <li class="text-spaceCadet">Genre1</li>
-                <li class="text-spaceCadet">Genre2</li>
+                {% for genre in detail.genres %}
+                    <li class="text-spaceCadet">{{genre.genre}}</li>
+                {% endfor %}
             </ul>
-            <p class="font-bold text-oxfordBlue">Artist: <span class="text-spaceCadet">Artist1</span></p>
+            <p class="font-bold text-oxfordBlue">Artist: <span class="text-spaceCadet">{{detail.artist}}</span></p>
             <p class="font-bold text-oxfordBlue">Songwriter(s):</p>
             <ul class="list-disc pl-5">
-                <li class="text-spaceCadet">Songwriter1</li>
-                <li class="text-spaceCadet">Songwriter2</li>
+                {% for songwriter in detail.songwriters %}
+                    <li class="text-spaceCadet">{{songwriter.songwriter}}</li>
+                {% endfor %}
             </ul>
-            <p class="font-bold text-oxfordBlue">Durasi: <span class="text-spaceCadet">3 menit</span></p>
-            <p class="font-bold text-oxfordBlue">Tanggal Rilis: <span class="text-spaceCadet">18/03/24</span></p>
-            <p class="font-bold text-oxfordBlue">Tahun: <span class="text-spaceCadet">2024</span></p>
-            <p class="font-bold text-oxfordBlue">Total Play: <span class="text-spaceCadet">0</span></p>
-            <p class="font-bold text-oxfordBlue">Total Downloads: <span class="text-spaceCadet">0</span></p>
+            <p class="font-bold text-oxfordBlue">Durasi: <span class="text-spaceCadet">{{detail.durasi}}</span></p>
+            <p class="font-bold text-oxfordBlue">Tanggal Rilis: <span class="text-spaceCadet">{{detail.tanggal_rilis}}</span></p>
+            <p class="font-bold text-oxfordBlue">Tahun: <span class="text-spaceCadet">{{detail_tahun}}</span></p>
+            <p class="font-bold text-oxfordBlue">Total Play: <span class="text-spaceCadet">{{detail.total_play}}</span></p>
+            <p class="font-bold text-oxfordBlue">Total Downloads: <span class="text-spaceCadet">{{detail.total_download}}</span></p>
             <p class="font-bold text-oxfordBlue">Album: <span class="text-spaceCadet">Album1</span></p>
         </div>
         
@@ -43,8 +45,10 @@
         <div class="flex justify-center space-x-4">
             <button class="btn-play bg-sunset hover:bg-rosyBrown text-oxfordBlue font-bold py-2 px-4 rounded-lg">Play</button>
             <button class="btn-add-to-playlist bg-sunset hover:bg-rosyBrown text-oxfordBlue font-bold py-2 px-4 rounded-lg">Add to Playlist</button>
+            {% if premium %}
             <button class="btn-download bg-sunset hover:bg-rosyBrown text-oxfordBlue font-bold py-2 px-4 rounded-lg">Download</button>
-            <button class="btn-back bg-sunset hover:bg-glaucous text-oxfordBlue font-bold py-2 px-4 rounded-lg">Kembali</button>
+            {% endif %}
+            <a href="{% url 'manageplaylist:manage-playlist'%}"><button class="btn-back bg-sunset hover:bg-glaucous text-oxfordBlue font-bold py-2 px-4 rounded-lg">Kembali</button></a>
         </div>
 
         <!-- Add to Playlist Modal -->
@@ -52,13 +56,16 @@
             <div class="modal-content bg-peach rounded-lg shadow-md p-4">
                 <span class="close">&times;</span>
                 <h2 class="text-xl font-bold text-center text-oxfordBlue mb-4">ADD SONG TO USER PLAYLIST</h2>
-                <form id="addToPlaylistForm">
+                <form id="addToPlaylistForm" action="{% url 'manageplaylist:add-song-to-playlist' detail.id_song %}" method="POST">
+                    {% csrf_token %}
                     <label for="playlistDropdown" class="block text-sm font-bold text-oxfordBlue mb-2">Playlist:</label>
                     <select id="playlistDropdown" name="playlist" class="block w-full bg-glaucous text-oxfordBlue border border-glaucous rounded-lg px-4 py-2 focus:outline-none focus:bg-lightOrange focus:border-sunset">
                         <option value="" disabled selected>Pilih playlist...</option>
-                        <!-- Populate with user's playlists -->
-                        <option value="playlist1">Playlist1</option>
-                        <option value="playlist2">Playlist2</option>
+                        {% if playlists %}
+                            {% for playlist in playlists %}
+                            <option value="{{ playlist.id}}">{{playlist.playlist}}</option>
+                            {% endfor %}
+                        {% endif %}
                     </select>
                     <button type="submit" class="btn-add-to-playlist-modal bg-sunset hover:bg-rosyBrown text-oxfordBlue font-bold py-2 px-4 rounded-lg mt-4 w-full">TAMBAH</button>
                 </form>
