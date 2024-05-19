@@ -1,8 +1,9 @@
+from django.shortcuts import redirect, render
+import random, uuid
 from django.http import HttpResponseRedirect
 from django.db import connection, connections
 from django.urls import reverse
-from django.shortcuts import redirect, render
-import random, uuid
+
 
 # Fungsi yang digunakan untuk melakukan login
 def login(request):
@@ -12,7 +13,7 @@ def login(request):
 
         print(request.COOKIES.get('login'))
         user, is_label = authenticate(email, password)
-        response = HttpResponseRedirect(reverse("Authentication:nav"))
+        response = HttpResponseRedirect(reverse("dashboard:dashboard"))
         if(is_label == True):
             response.set_cookie("login", user[0][2])
         else:
@@ -104,8 +105,8 @@ def checkRole(email):
     return {'artist':artist, 'songwriter':songwriter, 'podcaster':podcaster, 'label':label, 'hak_cipta':{'artist' : hak_cipta_artist, 'songwriter' : hak_cipta_songwriter, 'podcaster' : hak_cipta_podcaster, 'label' : hak_cipta_label}}
 
 #Fungsi yang digunakan untuk mengambil data user dan kembalikan dalam dictionary
-def get_user_data (email):
-    print("email anda adalah", email)
+def get_user_data(email):
+    print("Fetching user data for email:", email)  # Debug statement
     context = {}
     USER_QUERY = f"""
         SELECT * FROM AKUN
@@ -117,31 +118,35 @@ def get_user_data (email):
         WHERE email = '{email}'
     """
     user = selectQuery(USER_QUERY)
-    if (len(user) != 0):
+    if len(user) != 0:
         context = {
-            "show_navbar" : True,
-            "user_email" : user[0][0],
-            "user_password" : user[0][1],
-            "user_name" : user[0][2],
-            "user_gender" : 'Female' if user[0][3] == 0 else 'Male',
-            "user_tempat_lahir" : user[0][4],
-            "user_tanggal_lahir" : user[0][5],
-            "user_is_verified" : user[0][6],
-            "user_kota_asal" : user[0][7],
-            "user_role" : checkRole(email=user[0][0])
+            "user_email": user[0][0],
+            "user_password": user[0][1],
+            "user_name": user[0][2],
+            "user_gender": 'Female' if user[0][3] == 0 else 'Male',
+            "user_tempat_lahir": user[0][4],
+            "user_tanggal_lahir": user[0][5],
+            "user_is_verified": user[0][6],
+            "user_kota_asal": user[0][7],
+            "user_role": checkRole(email=user[0][0])
         }
+        print("User data found:", context)  # Debug statement
     else:
         user = selectQuery(LABEL_QUERY)
-        context = {
-            "show_navbar" : True, 
-            "user_id" : user[0][0],
-            "user_name" : user[0][1],
-            "user_email" : user[0][2],
-            "user_password" : user[0][3],
-            "user_kontak" : user[0][4],
-            "user_role" : checkRole(email=user[0][2])
-        }
+        if len(user) != 0:
+            context = {
+                "user_id": user[0][0],
+                "user_name": user[0][1],
+                "user_email": user[0][2],
+                "user_password": user[0][3],
+                "user_kontak": user[0][4],
+                "user_role": checkRole(email=user[0][2])
+            }
+            print("Label data found:", context)  # Debug statement
+        else:
+            print("No user found for email:", email)  # Debug statement
     return context
+
 
 def authenticate(email, password):
     USER_QUERY = f"""
@@ -261,4 +266,5 @@ def showLabelRegPage(request):
         'label' : True,
         'logged_in' : False,
     }
+
     return render(request, "labelReg.html", context)
