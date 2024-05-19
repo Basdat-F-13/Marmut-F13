@@ -118,6 +118,7 @@ def get_user_data(email):
     user = selectQuery(USER_QUERY)
     if len(user) != 0:
         context = {
+            "show_navbar" : True,
             "premium" : check_premium(email),
             "user_email": user[0][0],
             "user_password": user[0][1],
@@ -134,6 +135,7 @@ def get_user_data(email):
         user = selectQuery(LABEL_QUERY)
         if len(user) != 0:
             context = {
+                "show_navbar" : True,
                 "user_id": user[0][0],
                 "user_name": user[0][1],
                 "user_email": user[0][2],

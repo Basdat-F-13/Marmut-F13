@@ -32,13 +32,13 @@
     <body>
         {% if show_navbar %}
         <nav class="bg-oxfordBlue border-gray-200">
-            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
                 <a href="" class="flex items-center space-x-3">
                     <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">MARMUT F13</span>
                 </a>
 
                 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-                    <ul class="flex flex-col font-medium p-4 mt-4 border border-white rounded-lg md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-blue">
+                    <ul class="flex flex-col font-medium p-4 mt-4 rounded-lg md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-blue">
                         {% if not user_role.label %}
                         <li>
                             <a href="{% url 'dashboard:dashboard' %}" class="block py-2 px-3 text-peach bg-peach rounded md:bg-transparent md:text-peach md:p-0" aria-current="page">Dashboard</a>
@@ -49,7 +49,7 @@
                         <li>
                             <a href="#" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Subscription</a>
                         </li>
-                            <a href="#" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Podcast</a>
+                            <a href="" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Podcast</a>
                         </li>
                             <a href="#" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Song</a>
                         </li>
