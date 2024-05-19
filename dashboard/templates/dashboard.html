@@ -1,5 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
 
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,21 +10,14 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- All the above is necessary for Bootstrap to function in this snippet -->
-
     <style>
-        /* Set the maximum width for carousel images */
         .carousel-item img {
             max-width: 100%;
             height: auto;
         }
-        /* Add the new CSS here */
         body::after {
             content: "";
-            background: url("{% static 'background3.svg' %}") no-repeat center center fixed; 
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
+            background: url("{% static 'background3.svg' %}") no-repeat center center fixed;
             background-size: cover;
             opacity: 0.5;
             top: 0;
@@ -30,22 +25,19 @@
             bottom: 0;
             right: 0;
             position: absolute;
-            z-index: -1;   
+            z-index: -1;
         }
         .modal-content {
-        background-color: #FDD8A1; /* Mengubah warna latar belakang */
+            background-color: #FDD8A1;
         }
-
         .modal-body p {
-            font-family: 'TT Wellingtons'; /* Mengubah font */
-            color: #09173E; /* Mengubah warna teks */
+            font-family: 'TT Wellingtons';
+            color: #09173E;
         }
-        
     </style>
 </head>
 <body>
     <div class="carousel slide" id="slider" data-ride="carousel">
-        <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#slider" data-slide-to="0" class="active"></li>
             <li data-target="#slider" data-slide-to="1"></li>
@@ -71,155 +63,110 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-
-    <!-- Add a container for the cards -->
     <div class="container mt-4">
         <div class="row">
-            <!-- First column (2/5 width) -->
             <div class="col-md-4">
                 <div class="card" style="background-color: #09173E;">
                     <div class="card-body">
                         <h5 class="card-title" style="font-family: SangBleu; text-align: center; color: #FDF2DC;">PROFIL</h5>
                         <img src="{% static 'user.svg' %}" alt="User Image" style="display: block; margin: 0 auto;">
                         <p style="font-family: TT Wellingtons; color: #FDF2DC;">
-                            Nama: John Doe<br>
-                            Email: john.doe@example.com<br>
-                            Kontak: +1 123-456-7890<br>
-                            Kota Asal: New York<br>
-                            Gender: Male<br>
-                            Tempat Lahir: Jakarta<br>
-                            Tanggal Lahir: 15 Mei 1990<br>
-                            Role: User
+                            Nama: {{ user.name }}<br>
+                            Email: {{ user.email }}<br>
+                            {% if user.kontak %}
+                            Kontak: {{ user.kontak }}<br>
+                            {% endif %}
+                            {% if user.kota_asal %}
+                            Kota Asal: {{ user.kota_asal }}<br>
+                            {% endif %}
+                            Gender: {{ user.gender }}<br>
+                            Tempat Lahir: {{ user.tempat_lahir }}<br>
+                            Tanggal Lahir: {{ user.tanggal_lahir }}<br>
+                            Role: {{ roles|join:", " }}
                         </p>
                     </div>
                 </div>
             </div>
-
-<!-- untuk TK 4Second column (3/5 width) -->
-<!-- <div class="col-md-8" style="margin-top: 1cm;">
-    <div class="card">
-        <div class="card-body"> -->
-            <!-- Content for Card 2 -->
-            <!-- <h5 class="card-title">Daftar Playlist / Lagu / Podcast / Album</h5> -->
-            <!-- Check user role and display appropriate content -->
-            <!-- {% if user_role == 'Pengguna Biasa' %}
-                {% if has_playlists %} -->
-                    <!-- Display list of playlists -->
-                    <!-- ... (code for displaying playlists) ... -->
-                <!-- {% else %}
-                    <p>Belum Memiliki Playlist.</p>
-                {% endif %}
-                <a href="formuser.html"><img src="{% static 'plus_icon.svg' %}" alt="Tambah Playlist"></a>
-            {% elif user_role == 'Artist/Songwriter' %} -->
-                <!-- Similar logic for displaying songs -->
-                <!-- ... (code for displaying songs) ... -->
-                <!-- <a href="formsong.html"><img src="{% static 'plus_icon.svg' %}" alt="Tambah Lagu"></a>
-            {% elif user_role == 'Podcaster' %} -->
-                <!-- Similar logic for displaying podcasts -->
-                <!-- ... (code for displaying podcasts) ... -->
-                <!-- <a href="formpodcaster.html"><img src="{% static 'plus_icon.svg' %}" alt="Tambah Podcast"></a>
-            {% elif user_role == 'Label' %} -->
-                <!-- Similar logic for displaying albums -->
-                <!-- ... (code for displaying albums) ... -->
-                <!-- <a href="formlabel.html"><img src="{% static 'plus_icon.svg' %}" alt="Tambah Album"></a>
-            {% endif %}
-        </div>
-    </div>
-</div> -->
-
-            <!-- Second column (3/5 width) -->
-            <div class="col-md-8" >
+            <div class="col-md-8">
                 <div class="card" style="background-color: #FDF2DA;">
                     <div class="card-body">
-                        <!-- Title "PLAYLIST" -->
-                        <h5 class="card-title" style="font-family: SangBleu; color: #09173E;">PLAYLIST</h5>
-        
-                        <!-- Mini Cards -->
-                        <div class="row">
-                            <!-- Mini Card 1 -->
-                            <div class="col-md-3">
-                                <div class="card" style="background-color: #6D7DB1; padding: 10px;">
-                                    <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">Playlist 1</h6>
-                                    <img src="{% static 'gp1.svg' %}" alt="Playlist Image 1" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#playlistModal1" style="background-color: #09173E;">View Playlist</button>
+                        {% if "User" in roles or not roles %}
+                            <h5 class="card-title" style="font-family: SangBleu; color: #09173E;">PLAYLIST</h5>
+                            {% if playlists and playlists != "Belum Memiliki Playlist" %}
+                                <div class="row">
+                                    {% for playlist in playlists %}
+                                        <div class="col-md-3">
+                                            <div class="card" style="background-color: #6D7DB1; padding: 10px;">
+                                                <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">{{ playlist.1 }}</h6>
+                                                <img src="{% static 'gp'|add:forloop.counter|stringformat:"d"|add:".svg" %}" alt="Playlist Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
+                                            </div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
-                            </div>
-
-
-                            <!-- Mini Card 2 (similar structure) -->
-                            <div class="col-md-3">
-                                <div class="card" style="background-color: #6D7DB1; padding: 10px;">
-                                    <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">Playlist 2</h6>
-                                    <img src="{% static 'gp2.svg' %}" alt="Playlist Image 2" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#playlistModal2" style="background-color: #09173E;">View Playlist</button>
+                            {% else %}
+                                <p>Belum Memiliki Playlist</p>
+                            {% endif %}
+                        {% endif %}
+                        
+                        {% if "Podcaster" in roles %}
+                            <h5 class="card-title" style="font-family: SangBleu; color: #09173E;">PODCAST</h5>
+                            {% if podcasts and podcasts != "Belum Memiliki Podcast" %}
+                                <div class="row">
+                                    {% for podcast in podcasts %}
+                                        <div class="col-md-3">
+                                            <div class="card" style="background-color: #6D7DB1; padding: 10px;">
+                                                <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">{{ podcast.1 }}</h6>
+                                                <img src="{% static 'gp'|add:forloop.counter|stringformat:"d"|add:".svg" %}" alt="Podcast Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
+                                            </div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
-                            </div>
-        
-                            <!-- Mini Card 3 (similar structure) -->
-                            <div class="col-md-3">
-                                <div class="card" style="background-color: #6D7DB1; padding: 10px;">
-                                    <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">Playlist 3</h6>
-                                    <img src="{% static 'gp3.svg' %}" alt="Playlist Image 3" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#playlistModal3" style="background-color: #09173E;">View Playlist</button>
+                            {% else %}
+                                <p>Belum Memiliki Podcast</p>
+                            {% endif %}
+                        {% endif %}
+                        
+                        {% if "Artist" in roles or "Songwriter" in roles %}
+                            <h5 class="card-title" style="font-family: SangBleu; color: #09173E;">LAGU</h5>
+                            {% if songs and songs != "Belum Memiliki Lagu" %}
+                                <div class="row">
+                                    {% for song in songs %}
+                                        <div class="col-md-3">
+                                            <div class="card" style="background-color: #6D7DB1; padding: 10px;">
+                                                <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">{{ song.1 }}</h6>
+                                                <img src="{% static 'gp'|add:forloop.counter|stringformat:"d"|add:".svg" %}" alt="Song Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
+                                            </div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
-                            </div>
-        
-                        </div>
-                        <button type="button" class="btn" style="width: 100%; display: flex; justify-content: flex-end;">
-                            <img src="{% static 'edit.svg' %}" alt="Edit" class="edit-icon" style="width: 40px; height: 40px;">
-                        </button>                        
+                            {% else %}
+                                <p>Belum Memiliki Lagu</p>
+                            {% endif %}
+                        {% endif %}
+                        
+                        {% if "Label" in roles %}
+                            <h5 class="card-title" style="font-family: SangBleu; color: #09173E;">ALBUM</h5>
+                            {% if albums and albums != "Belum Memproduksi Album" %}
+                                <div class="row">
+                                    {% for album in albums %}
+                                        <div class="col-md-3">
+                                            <div class="card" style="background-color: #6D7DB1; padding: 10px;">
+                                                <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">{{ album.1 }}</h6>
+                                                <img src="{% static 'gp'|add:forloop.counter|stringformat:"d"|add:".svg" %}" alt="Album Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p>Belum Memproduksi Album</p>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
-        
-            <!-- Modal for Playlist Details 1 -->
-            <div class="modal fade" id="playlistModal1" tabindex="-1" role="dialog" aria-labelledby="playlistModalLabel1" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <p>song 1</p>
-                            <p>song 2</p>
-                        </div>
-                        <button type="button" class="btn" style="width: 100%; display: flex; justify-content: flex-end;">
-                            <img src="{% static 'pencil.svg' %}" alt="Edit" class="edit-icon" style="width: 40px; height: 40px;">
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal for Playlist Details 2 -->
-            <div class="modal fade" id="playlistModal2" tabindex="-1" role="dialog" aria-labelledby="playlistModalLabel2" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <p>song 1</p>
-                            <p>song 2</p>
-                            <p>song 3</p>
-                        </div>
-                        <button type="button" class="btn" style="width: 100%; display: flex; justify-content: flex-end;">
-                            <img src="{% static 'pencil.svg' %}" alt="Edit" class="edit-icon" style="width: 40px; height: 40px;">
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal for Playlist Details 3 -->
-            <div class="modal fade" id="playlistModal3" tabindex="-1" role="dialog" aria-labelledby="playlistModalLabel3" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <p>song 1</p>
-                            <p>song 2</p>
-                            <p>song 3</p>
-                            <p>song 4</p>
-                            <p>song 5</p>
-                        </div>
-                        <button type="button" class="btn" style="width: 100%; display: flex; justify-content: flex-end;">
-                            <img src="{% static 'pencil.svg' %}" alt="Edit" class="edit-icon" style="width: 40px; height: 40px;">
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-    </body>
+        </div>
+    </div>
+</body>
 </html>
+
+{% endblock content %}
