@@ -59,7 +59,7 @@ def showdashboard(request):
     print("Email from cookies:", email)  # Debug statement
     user = get_user_data(email)
     context = user
-    context['show_navbar'] = True
+    context ["show_navbar"] = True
 
     if user:
         try:
