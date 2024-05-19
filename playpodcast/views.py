@@ -1,12 +1,23 @@
 import psycopg2
 import random
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from pathlib import Path
 from django.http import Http404
+from Authentication.views import get_user_data
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 def showlistpodcast(request):
+    # Get the logged-in user's email
+    email = request.COOKIES.get("login")
+    if not email:
+        return redirect('login')  # Redirect to login if no email found in cookies
+
+    # Fetch user data
+    user = get_user_data(email)
+    if not user:
+        return redirect('login')  # Redirect to login if user data not found
+
     # Connect to the PostgreSQL database
     conn = psycopg2.connect(
         dbname='postgres',
@@ -39,10 +50,25 @@ def showlistpodcast(request):
         image = random.choice(images)
         podcast_list.append({'id': podcast[0], 'title': podcast[1], 'genre': podcast[2], 'image': image})
 
+    # Prepare the context with user data
+    context = user
+    context["podcasts"] = podcast_list
+    context["show_navbar"] = True
+
     # Pass the fetched data to the template
-    return render(request, 'listpodcast.html', {'podcasts': podcast_list})
+    return render(request, 'listpodcast.html', context)
 
 def showplaypodcast(request, podcast_id):
+    # Get the logged-in user's email
+    email = request.COOKIES.get("login")
+    if not email:
+        return redirect('login')  # Redirect to login if no email found in cookies
+
+    # Fetch user data
+    user = get_user_data(email)
+    if not user:
+        return redirect('login')  # Redirect to login if user data not found
+
     # Connect to the PostgreSQL database
     conn = psycopg2.connect(
         dbname='postgres',
@@ -102,14 +128,18 @@ def showplaypodcast(request, podcast_id):
             'image': image
         })
 
-    # Pass the fetched data to the template
-    context = {
+    # Prepare the context with user data
+    context = user
+    context.update({
         'title': podcast_details[0],
         'genre': podcast_details[1],
         'podcaster': podcast_details[2],
         'total_duration': total_duration,
         'release_date': podcast_details[4].strftime("%d %B %Y"),  # Format date to a readable format
         'year': podcast_details[5],
-        'episodes': formatted_episodes
-    }
+        'episodes': formatted_episodes,
+        "show_navbar": True
+    })
+
+    # Pass the fetched data to the template
     return render(request, 'playpodcast.html', context)
