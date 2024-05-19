@@ -41,10 +41,10 @@
                     <ul class="flex flex-col font-medium p-4 mt-4 border border-white rounded-lg md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-blue">
                         {% if not user_role.label %}
                         <li>
-                            <a href="#" class="block py-2 px-3 text-peach bg-peach rounded md:bg-transparent md:text-peach md:p-0" aria-current="page">Dashboard</a>
+                            <a href="{% url 'dashboard:dashboard' %}" class="block py-2 px-3 text-peach bg-peach rounded md:bg-transparent md:text-peach md:p-0" aria-current="page">Dashboard</a>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Chart</a>
+                            <a href="{% url 'viewchart:viewchart' %}" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Chart</a>
                         </li>
                         <li>
                             <a href="#" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Subscription</a>
@@ -99,19 +99,22 @@
                             </li>
                             {% endif %}
                             {% if not user_role.label %}
-                            <li>
-                            <a href="{% url 'manageplaylist:manage-playlist' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Playlist</a>
-                            </li>
+
+                                <li>
+                                <a href="{% url 'manageplaylist:manage-playlist' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Playlist</a>
+                                </li>
+
+
                             {% endif %}
-                            {% if user_role.podcast %}
-                            <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Podcast</a>
-                            </li>
+                            {% if user_role.podcaster %}
+                                <li>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Podcast</a>
+                                </li>
                             {% endif %}
                             {% if user_role.artist or user_role.songwriter %}
-                            <li>
-                            <a href="{% url 'SongAlbum:show_album' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Album</a>
-                            </li>
+                                <li>
+                                <a href="{% url 'SongAlbum:show_album' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Album</a>
+                                </li>
                             {% elif user_role.label %}
                             <li>
                             <a href="{% url 'SongAlbum:show_album_label' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Album</a>
@@ -119,9 +122,9 @@
                             
                             {% endif %}
                             {% if user_role.artist or user_role.songwriter or user_role.label %}
-                            <li>
-                            <a href="{% url 'SongAlbum:royalty_check' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Royalty Check</a>
-                            </li>
+                                <li>
+                                <a href="{% url 'SongAlbum:royalty_check' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Royalty Check</a>
+                                </li>
                             {% endif %}
                             <li>
                             <a href="{% url 'Authentication:logout' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Logout</a>
