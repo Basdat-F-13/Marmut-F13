@@ -133,10 +133,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'dashboard/assets'
-    BASE_DIR / 'playpodcast/assets'
-    BASE_DIR / 'viewchart/assets'
-    BASE_DIR / 'managepod/assets'
+    BASE_DIR / 'dashboard/assets',
+    BASE_DIR / 'playpodcast/assets',
+    BASE_DIR / 'viewchart/assets',
+    BASE_DIR / 'managepod/assets',
 ]
 
 # Default primary key field type
