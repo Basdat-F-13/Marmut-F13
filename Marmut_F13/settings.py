@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-0tf57t8tcbsntv-bii89+_3axpwf7q^=t_j2lifgjgeu*(#csx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -138,6 +138,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
     BASE_DIR / 'dashboard/assets',
     BASE_DIR / 'playpodcast/assets',
     BASE_DIR / 'viewchart/assets',
