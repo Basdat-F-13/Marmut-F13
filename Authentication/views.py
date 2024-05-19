@@ -62,7 +62,7 @@ def modifyQuery(query):
 #Fungsi yang digunakan untuk mengambil role dari pengguna berdasarkan email
 def checkRole(email):
     artist, songwriter, podcaster, label = False, False, False, False
-    hak_cipta_artist, hak_cipta_songwriter, hak_cipta_podcaster, hak_cipta_label = "", "", "", ""
+    hak_cipta_artist, hak_cipta_songwriter, hak_cipta_label = "", "", ""
     LABEL_QUERY = f"""
         SELECT * FROM LABEL
         WHERE email = '{email}'
@@ -72,7 +72,7 @@ def checkRole(email):
     if(len(user) != 0):
         label = True
         hak_cipta_label = user[0][2]
-        return {'artist':artist, 'songwriter':songwriter, 'podcaster':podcaster, 'label':label, 'hak_cipta':{'artist' : hak_cipta_artist, 'songwriter' : hak_cipta_songwriter, 'podcaster' : hak_cipta_podcaster, 'label' : hak_cipta_label}}
+        return {'artist':artist, 'songwriter':songwriter, 'podcaster':podcaster, 'label':label, 'hak_cipta':{'artist' : hak_cipta_artist, 'songwriter' : hak_cipta_songwriter, 'label' : hak_cipta_label}}
 
     ARTIST_QUERY = f"""
         SELECT * FROM ARTIST
@@ -100,7 +100,7 @@ def checkRole(email):
     if (len(user) != 0):
         podcaster = True
 
-    return {'artist':artist, 'songwriter':songwriter, 'podcaster':podcaster, 'label':label, 'hak_cipta':{'artist' : hak_cipta_artist, 'songwriter' : hak_cipta_songwriter, 'podcaster' : hak_cipta_podcaster, 'label' : hak_cipta_label}}
+    return {'artist':artist, 'songwriter':songwriter, 'podcaster':podcaster, 'label':label, 'hak_cipta':{'artist' : hak_cipta_artist, 'songwriter' : hak_cipta_songwriter, 'label' : hak_cipta_label}}
 
 #Fungsi yang digunakan untuk mengambil data user dan kembalikan dalam dictionary
 def get_user_data (email):
