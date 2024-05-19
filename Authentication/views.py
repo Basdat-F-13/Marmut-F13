@@ -105,7 +105,6 @@ def checkRole(email):
 
 #Fungsi yang digunakan untuk mengambil data user dan kembalikan dalam dictionary
 def get_user_data(email):
-    print("Fetching user data for email:", email)  # Debug statement
     context = {}
     USER_QUERY = f"""
         SELECT * FROM AKUN
@@ -119,6 +118,7 @@ def get_user_data(email):
     user = selectQuery(USER_QUERY)
     if len(user) != 0:
         context = {
+            "premium" : check_premium(email),
             "user_email": user[0][0],
             "user_password": user[0][1],
             "user_name": user[0][2],
@@ -141,9 +141,6 @@ def get_user_data(email):
                 "user_kontak": user[0][4],
                 "user_role": checkRole(email=user[0][2])
             }
-            print("Label data found:", context)  # Debug statement
-        else:
-            print("No user found for email:", email)  # Debug statement
     return context
 
 
@@ -173,6 +170,12 @@ def check_premium(email):
         SELECT * FROM PREMIUM 
         WHERE email = '{email}'
     """
+
+    user = selectQuery(SUBSCRIPTION_QUERY)
+    if(len(user) != 0):
+        return True
+    return False
+
     
 def showRegister(request):
     context = {
