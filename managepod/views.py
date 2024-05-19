@@ -1,7 +1,9 @@
+import uuid
 import psycopg2
 import random
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 
 def connect_db():
     return psycopg2.connect(
@@ -21,7 +23,7 @@ def showmanagepod(request):
         JOIN marmut.konten k ON p.id_konten = k.id
         JOIN marmut.genre g ON p.id_konten = g.id_konten
         WHERE p.email_podcaster = %s
-    """, ["john.moran@gmail.com"])  # Replace with a test email for local testing
+    """, [email])  # Replace with a test email for local testing
     podcasts = cursor.fetchall()
     conn.close()
 
@@ -82,37 +84,64 @@ def showcreatepod(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         genre = request.POST.get('genre')
+        email_podcaster = request.COOKIES.get("login")  # Get the logged-in user's email
+
+        # Generate a new UUID for the konten id
+        konten_id = str(uuid.uuid4())
+
+        # Set the year value based on the current date
+        current_year = datetime.now().year
+
+        # Set a default duration value
+        default_duration = 0
 
         conn = connect_db()
         cursor = conn.cursor()
+        
+        # Insert into the konten table with the generated UUID, current year, and default duration
         cursor.execute("""
-            INSERT INTO marmut.konten (judul, tanggal_rilis) 
-            VALUES (%s, NOW()) RETURNING id
-        """, [title])
-        konten_id = cursor.fetchone()[0]
+            INSERT INTO marmut.konten (id, judul, tanggal_rilis, tahun, durasi) 
+            VALUES (%s, %s, NOW(), %s, %s)
+        """, [konten_id, title, current_year, default_duration])
+        
+        # Insert into the genre table
         cursor.execute("""
             INSERT INTO marmut.genre (id_konten, genre) 
             VALUES (%s, %s)
         """, [konten_id, genre])
+        
+        # Insert into the podcast table
         cursor.execute("""
-            INSERT INTO marmut.podcast (id_konten, id_podcaster) 
+            INSERT INTO marmut.podcast (id_konten, email_podcaster) 
             VALUES (%s, %s)
-        """, [konten_id, request.user.email])
+        """, [konten_id, email_podcaster])
+        
         conn.commit()
         conn.close()
-        return redirect('managepod')
+        
+        return redirect('managepod:showmanagepod')
 
     return render(request, "createpod.html")
 
 @csrf_exempt
 def showaddepisode(request, podcast_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    # Fetch podcast name
+    cursor.execute("""
+        SELECT k.judul
+        FROM marmut.konten k
+        JOIN marmut.podcast p ON k.id = p.id_konten
+        WHERE p.id_konten = %s
+    """, [podcast_id])
+    podcast_name = cursor.fetchone()[0]
+
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
         duration = request.POST.get('duration')
 
-        conn = connect_db()
-        cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO marmut.episode (id_podcast, judul, deskripsi, durasi, tanggal_rilis) 
             VALUES (%s, %s, %s, %s, NOW())
@@ -121,7 +150,8 @@ def showaddepisode(request, podcast_id):
         conn.close()
         return redirect('managepod:showlist', podcast_id=podcast_id)
 
-    return render(request, "addepisode.html", {'podcast_id': podcast_id})
+    conn.close()
+    return render(request, "addepisode.html", {'podcast_id': podcast_id, 'podcast_name': podcast_name})
 
 @csrf_exempt
 def delete_podcast(request, podcast_id):

@@ -99,14 +99,14 @@ def checkRole(email):
     """
     user = selectQuery(PODCASTER_QUERY)
     if (len(user) != 0):
-        podcaster = True 
-        hak_cipta_podcaster = user[0][2]
+        podcaster = True
 
     return {'artist':artist, 'songwriter':songwriter, 'podcaster':podcaster, 'label':label, 'hak_cipta':{'artist' : hak_cipta_artist, 'songwriter' : hak_cipta_songwriter, 'podcaster' : hak_cipta_podcaster, 'label' : hak_cipta_label}}
 
 #Fungsi yang digunakan untuk mengambil data user dan kembalikan dalam dictionary
 def get_user_data(email):
     print("Fetching user data for email:", email)  # Debug statement
+    
     context = {}
     USER_QUERY = f"""
         SELECT * FROM AKUN
@@ -145,6 +145,7 @@ def get_user_data(email):
             print("Label data found:", context)  # Debug statement
         else:
             print("No user found for email:", email)  # Debug statement
+    print (context["user_role"]["podcaster"])
     return context
 
 

@@ -99,19 +99,19 @@
                             </li>
                             {% endif %}
                             {% if not user_role.label %}
-                            <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Playlist</a>
-                            </li>
+                                <li>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Playlist</a>
+                                </li>
                             {% endif %}
-                            {% if user_role.podcast %}
-                            <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Podcast</a>
-                            </li>
+                            {% if user_role.podcaster %}
+                                <li>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Podcast</a>
+                                </li>
                             {% endif %}
                             {% if user_role.artist or user_role.songwriter %}
-                            <li>
-                            <a href="{% url 'SongAlbum:show_album' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Album</a>
-                            </li>
+                                <li>
+                                <a href="{% url 'SongAlbum:show_album' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Album</a>
+                                </li>
                             {% elif user_role.label %}
                             <li>
                             <a href="{% url 'SongAlbum:show_album_label' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Album</a>
@@ -119,9 +119,9 @@
                             
                             {% endif %}
                             {% if user_role.artist or user_role.songwriter or user_role.label %}
-                            <li>
-                            <a href="{% url 'SongAlbum:royalty_check' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Royalty Check</a>
-                            </li>
+                                <li>
+                                <a href="{% url 'SongAlbum:royalty_check' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Royalty Check</a>
+                                </li>
                             {% endif %}
                             <li>
                             <a href="{% url 'Authentication:logout' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Logout</a>
