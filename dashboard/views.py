@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.db import connection
 from Authentication.views import get_user_data
+import random
+
 
 def selectQuery(query, params=None):
     with connection.cursor() as cursor:
@@ -40,7 +42,7 @@ def get_songs(email):
         SELECT k.id, k.judul
         FROM SONG s
         JOIN KONTEN k ON s.id_konten = k.id
-        JOIN ARTIST a ON s.email_artist = a.email_akun
+        JOIN ARTIST a ON s.id_artist = a.id
         WHERE a.email_akun = %s
     """, [email])
 
@@ -75,18 +77,40 @@ def showdashboard(request):
             }
             context['roles'] = roles
 
+            images = ['gp1.svg', 'gp2.svg', 'gp3.svg', 'gp4.svg', 'gp5.svg', 'gp6.svg']
+
             if "Label" in roles:
                 albums = get_albums(email)
-                context['albums'] = albums if albums else "Belum Memproduksi Album"
+                if albums:
+                    albums_with_images = [(album[0], album[1], random.choice(images)) for album in albums]
+                    context['albums'] = albums_with_images
+                else:
+                    context['albums'] = "Belum Memproduksi Album"
+            
             if "Artist" in roles or "Songwriter" in roles:
                 songs = get_songs(email)
-                context['songs'] = songs if songs else "Belum Memiliki Lagu"
+                if songs:
+                    songs_with_images = [(song[0], song[1], random.choice(images)) for song in songs]
+                    context['songs'] = songs_with_images
+                else:
+                    context['songs'] = "Belum Memiliki Lagu"
+
             if "Podcaster" in roles:
                 podcasts = get_podcasts(email)
-                context['podcasts'] = podcasts if podcasts else "Belum Memiliki Podcast"
+                if podcasts:
+                    podcasts_with_images = [(podcast[0], podcast[1], random.choice(images)) for podcast in podcasts]
+                    context['podcasts'] = podcasts_with_images
+                else:
+                    context['podcasts'] = "Belum Memiliki Podcast"
+            
             if not roles or "User" in roles:
                 playlists = get_playlists(email)
-                context['playlists'] = playlists if playlists else "Belum Memiliki Playlist"
+                if playlists:
+                    playlists_with_images = [(playlist[0], playlist[1], random.choice(images)) for playlist in playlists]
+                    context['playlists'] = playlists_with_images
+                else:
+                    context['playlists'] = "Belum Memiliki Playlist"
+
         except KeyError as e:
             print(f"KeyError: {e}")  # Debug statement
             context['error'] = "Error fetching user data"
