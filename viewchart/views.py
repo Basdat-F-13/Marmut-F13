@@ -1,11 +1,23 @@
 import psycopg2
 import random
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime, timedelta
+from Authentication.views import get_user_data
 
 # Create your views here.
 def showviewchart(request):
-    context = {
+    # Get the logged-in user's email
+    email = request.COOKIES.get("login")
+    if not email:
+        return redirect('login')  # Redirect to login if no email found in cookies
+
+    # Fetch user data
+    user = get_user_data(email)
+    if not user:
+        return redirect('login')  # Redirect to login if user data not found
+
+    context = user
+    context.update({
         'show_navbar': True,
         'user_role': {
             'label': False,
@@ -13,7 +25,7 @@ def showviewchart(request):
             'artist': True,
             'songwriter': True
         }
-    }
+    })
     return render(request, "viewchart.html", context)
 
 def fetch_songs(cursor, limit=20):
@@ -31,6 +43,16 @@ def fetch_songs(cursor, limit=20):
     return cursor.fetchall()
 
 def showdailypagechart(request):
+    # Get the logged-in user's email
+    email = request.COOKIES.get("login")
+    if not email:
+        return redirect('login')  # Redirect to login if no email found in cookies
+
+    # Fetch user data
+    user = get_user_data(email)
+    if not user:
+        return redirect('login')  # Redirect to login if user data not found
+
     conn = psycopg2.connect(
         dbname='postgres',
         user='postgres.llzlkweenzlgbpgkbnbd',
@@ -56,13 +78,24 @@ def showdailypagechart(request):
             'image': image
         })
 
-    context = {
+    context = user
+    context.update({
         'show_navbar': True,
         'songs': song_list
-    }
+    })
     return render(request, "dailypage.html", context)
 
 def showweeklypagechart(request):
+    # Get the logged-in user's email
+    email = request.COOKIES.get("login")
+    if not email:
+        return redirect('login')  # Redirect to login if no email found in cookies
+
+    # Fetch user data
+    user = get_user_data(email)
+    if not user:
+        return redirect('login')  # Redirect to login if user data not found
+
     conn = psycopg2.connect(
         dbname='postgres',
         user='postgres.llzlkweenzlgbpgkbnbd',
@@ -88,13 +121,24 @@ def showweeklypagechart(request):
             'image': image
         })
 
-    context = {
+    context = user
+    context.update({
         'show_navbar': True,
         'songs': song_list
-    }
+    })
     return render(request, "weeklypage.html", context)
 
 def showmonthlypagechart(request):
+    # Get the logged-in user's email
+    email = request.COOKIES.get("login")
+    if not email:
+        return redirect('login')  # Redirect to login if no email found in cookies
+
+    # Fetch user data
+    user = get_user_data(email)
+    if not user:
+        return redirect('login')  # Redirect to login if user data not found
+
     conn = psycopg2.connect(
         dbname='postgres',
         user='postgres.llzlkweenzlgbpgkbnbd',
@@ -120,13 +164,24 @@ def showmonthlypagechart(request):
             'image': image
         })
 
-    context = {
+    context = user
+    context.update({
         'show_navbar': True,
         'songs': song_list
-    }
+    })
     return render(request, "monthlypage.html", context)
 
 def showyearlypagechart(request):
+    # Get the logged-in user's email
+    email = request.COOKIES.get("login")
+    if not email:
+        return redirect('login')  # Redirect to login if no email found in cookies
+
+    # Fetch user data
+    user = get_user_data(email)
+    if not user:
+        return redirect('login')  # Redirect to login if user data not found
+
     conn = psycopg2.connect(
         dbname='postgres',
         user='postgres.llzlkweenzlgbpgkbnbd',
@@ -152,8 +207,9 @@ def showyearlypagechart(request):
             'image': image
         })
 
-    context = {
+    context = user
+    context.update({
         'show_navbar': True,
         'songs': song_list
-    }
+    })
     return render(request, "yearlypage.html", context)
