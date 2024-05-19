@@ -1,7 +1,10 @@
-import psycopg2
-import random
+import uuid
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+import psycopg2
+from datetime import datetime
+import random
+from Authentication.views import get_user_data
 
 def connect_db():
     return psycopg2.connect(
@@ -13,6 +16,14 @@ def connect_db():
     )
 
 def showmanagepod(request):
+    email = request.COOKIES.get("login")  # Get the logged-in user's email
+    if not email:
+        return redirect('login')  # Redirect to login if no email found in cookies
+
+    user = get_user_data(email)
+    context = user
+    context["show_navbar"] = True
+
     conn = connect_db()
     cursor = conn.cursor()
     cursor.execute("""
@@ -21,7 +32,7 @@ def showmanagepod(request):
         JOIN marmut.konten k ON p.id_konten = k.id
         JOIN marmut.genre g ON p.id_konten = g.id_konten
         WHERE p.email_podcaster = %s
-    """, ["john.moran@gmail.com"])  # Replace with a test email for local testing
+    """, [email])
     podcasts = cursor.fetchall()
     conn.close()
 
@@ -34,9 +45,23 @@ def showmanagepod(request):
     images = ['pod1.svg', 'pod2.svg']
     podcasts_with_images = [(podcast[0], podcast[1], podcast[2], random.choice(images)) for podcast in podcasts]
 
-    return render(request, "managepod.html", {'podcasts': podcasts_with_images, 'message': message})
+    context.update({
+        'podcasts': podcasts_with_images,
+        'message': message
+    })
+
+    return render(request, "managepod.html", context)
+
 
 def showlist(request, podcast_id):
+    email = request.COOKIES.get("login")  # Get the logged-in user's email
+    if not email:
+        return redirect('login')  # Redirect to login if no email found in cookies
+
+    user = get_user_data(email)
+    context = user
+    context["show_navbar"] = True
+
     conn = connect_db()
     cursor = conn.cursor()
     
@@ -74,73 +99,179 @@ def showlist(request, podcast_id):
             'image': image
         })
 
-    return render(request, "list.html", {'episodes': episode_list, 'podcast_id': podcast_id, 'podcast_name': podcast_name})
+    context.update({
+        'episodes': episode_list,
+        'podcast_id': podcast_id,
+        'podcast_name': podcast_name
+    })
 
+    return render(request, "list.html", context)
 
 @csrf_exempt
 def showcreatepod(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         genre = request.POST.get('genre')
+        email_podcaster = request.COOKIES.get("login")  # Get the logged-in user's email
+
+        # Generate a new UUID for the konten id
+        konten_id = str(uuid.uuid4())
+
+        # Set the year value based on the current date
+        current_year = datetime.now().year
+
+        # Set a default duration value
+        default_duration = 0
 
         conn = connect_db()
         cursor = conn.cursor()
+        
+        # Insert into the konten table with the generated UUID, current year, and default duration
         cursor.execute("""
-            INSERT INTO marmut.konten (judul, tanggal_rilis) 
-            VALUES (%s, NOW()) RETURNING id
-        """, [title])
-        konten_id = cursor.fetchone()[0]
+            INSERT INTO marmut.konten (id, judul, tanggal_rilis, tahun, durasi) 
+            VALUES (%s, %s, NOW(), %s, %s)
+        """, [konten_id, title, current_year, default_duration])
+        
+        # Insert into the genre table
         cursor.execute("""
             INSERT INTO marmut.genre (id_konten, genre) 
             VALUES (%s, %s)
         """, [konten_id, genre])
+        
+        # Insert into the podcast table
         cursor.execute("""
-            INSERT INTO marmut.podcast (id_konten, id_podcaster) 
+            INSERT INTO marmut.podcast (id_konten, email_podcaster) 
             VALUES (%s, %s)
-        """, [konten_id, request.user.email])
+        """, [konten_id, email_podcaster])
+        
         conn.commit()
         conn.close()
-        return redirect('managepod')
+        
+        return redirect('managepod:managepod')
 
     return render(request, "createpod.html")
 
 @csrf_exempt
 def showaddepisode(request, podcast_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    # Fetch podcast name
+    cursor.execute("""
+        SELECT k.judul
+        FROM marmut.konten k
+        JOIN marmut.podcast p ON k.id = p.id_konten
+        WHERE p.id_konten = %s
+    """, [podcast_id])
+    podcast_name = cursor.fetchone()[0]
+
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
         duration = request.POST.get('duration')
 
-        conn = connect_db()
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO marmut.episode (id_podcast, judul, deskripsi, durasi, tanggal_rilis) 
-            VALUES (%s, %s, %s, %s, NOW())
-        """, [podcast_id, title, description, duration])
-        conn.commit()
-        conn.close()
-        return redirect('managepod:showlist', podcast_id=podcast_id)
+        # Generate a new UUID for the episode id
+        episode_id = str(uuid.uuid4())
 
-    return render(request, "addepisode.html", {'podcast_id': podcast_id})
+        cursor.execute("SET search_path TO marmut;")  # Set the correct schema
+
+        # Disable triggers temporarily
+        cursor.execute("SET session_replication_role = 'replica';")
+
+        try:
+            # Insert into the episode table
+            cursor.execute("""
+                INSERT INTO episode (id_episode, id_konten_podcast, judul, deskripsi, durasi, tanggal_rilis) 
+                VALUES (%s, %s, %s, %s, %s, NOW())
+            """, [episode_id, podcast_id, title, description, duration])
+
+            # Re-enable triggers
+            cursor.execute("SET session_replication_role = 'origin';")
+
+            # Update the duration in the konten table
+            cursor.execute("""
+                UPDATE konten
+                SET durasi = durasi + %s
+                WHERE id = %s
+            """, [duration, podcast_id])
+
+            conn.commit()
+        except Exception as e:
+            conn.rollback()
+            raise e
+        finally:
+            conn.close()
+
+        return redirect('managepod:list', podcast_id=podcast_id)
+
+    conn.close()
+    return render(request, "addepisode.html", {'podcast_id': podcast_id, 'podcast_name': podcast_name})
+
 
 @csrf_exempt
 def delete_podcast(request, podcast_id):
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("""
-        DELETE FROM marmut.podcast WHERE id_konten = %s
-    """, [podcast_id])
-    conn.commit()
-    conn.close()
-    return redirect('managepod:showmanagepod')
+    cursor.execute("SET search_path TO marmut;")  # Set the correct schema
+
+    # Disable triggers temporarily
+    cursor.execute("SET session_replication_role = 'replica';")
+
+    try:
+        # Fetch and delete all episodes associated with the podcast
+        cursor.execute("SELECT id_episode FROM episode WHERE id_konten_podcast = %s", [podcast_id])
+        episodes = cursor.fetchall()
+
+        for episode in episodes:
+            cursor.execute("DELETE FROM episode WHERE id_episode = %s", [episode[0]])
+
+        # Delete the podcast
+        cursor.execute("DELETE FROM podcast WHERE id_konten = %s", [podcast_id])
+
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise e
+    finally:
+        # Re-enable triggers
+        cursor.execute("SET session_replication_role = 'origin';")
+        conn.close()
+
+    return redirect('managepod:managepod')
+
 
 @csrf_exempt
 def delete_episode(request, episode_id, podcast_id):
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("""
-        DELETE FROM marmut.episode WHERE id = %s
-    """, [episode_id])
-    conn.commit()
-    conn.close()
-    return redirect('managepod:showlist', podcast_id=podcast_id)
+    cursor.execute("SET search_path TO marmut;")  # Set the correct schema
+
+    # Disable triggers temporarily
+    cursor.execute("SET session_replication_role = 'replica';")
+
+    try:
+        # Fetch the duration of the episode to be deleted
+        cursor.execute("SELECT durasi FROM episode WHERE id_episode = %s", [episode_id])
+        duration = cursor.fetchone()[0]
+
+        # Delete the episode
+        cursor.execute("DELETE FROM episode WHERE id_episode = %s", [episode_id])
+
+        # Re-enable triggers
+        cursor.execute("SET session_replication_role = 'origin';")
+
+        # Update the duration in the konten table
+        cursor.execute("""
+            UPDATE konten
+            SET durasi = durasi - %s
+            WHERE id = %s
+        """, [duration, podcast_id])
+
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise e
+    finally:
+        conn.close()
+
+    return redirect('managepod:list', podcast_id=podcast_id)
