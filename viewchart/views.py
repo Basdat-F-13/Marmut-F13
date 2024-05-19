@@ -7,13 +7,14 @@ from datetime import datetime, timedelta
 def showviewchart(request):
     context = {
         'show_navbar': True,
-        'user': True,
-        'artist': True,
-        'songwriter': False,
-        'podcast': False,
-        'label': False
+        'user_role': {
+            'label': False,
+            'podcast': True,
+            'artist': True,
+            'songwriter': True
+        }
     }
-    return render(request, "viewchart.html", {})
+    return render(request, "viewchart.html", context)
 
 def fetch_songs(cursor, limit=20):
     query = """
@@ -56,6 +57,7 @@ def showdailypagechart(request):
         })
 
     context = {
+        'show_navbar': True,
         'songs': song_list
     }
     return render(request, "dailypage.html", context)
@@ -87,6 +89,7 @@ def showweeklypagechart(request):
         })
 
     context = {
+        'show_navbar': True,
         'songs': song_list
     }
     return render(request, "weeklypage.html", context)
@@ -118,6 +121,7 @@ def showmonthlypagechart(request):
         })
 
     context = {
+        'show_navbar': True,
         'songs': song_list
     }
     return render(request, "monthlypage.html", context)
@@ -149,6 +153,7 @@ def showyearlypagechart(request):
         })
 
     context = {
+        'show_navbar': True,
         'songs': song_list
     }
     return render(request, "yearlypage.html", context)

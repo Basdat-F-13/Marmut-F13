@@ -98,7 +98,7 @@
                                         <div class="col-md-3">
                                             <div class="card" style="background-color: #6D7DB1; padding: 10px;">
                                                 <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">{{ playlist.1 }}</h6>
-                                                <img src="{% static 'gp'|add:forloop.counter|stringformat:"d"|add:".svg" %}" alt="Playlist Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
+                                                <img src="{% static playlist.2 %}" alt="Playlist Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -116,7 +116,7 @@
                                         <div class="col-md-3">
                                             <div class="card" style="background-color: #6D7DB1; padding: 10px;">
                                                 <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">{{ podcast.1 }}</h6>
-                                                <img src="{% static 'gp'|add:forloop.counter|stringformat:"d"|add:".svg" %}" alt="Podcast Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
+                                                <img src="{% static podcast.2 %}" alt="Podcast Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -134,7 +134,7 @@
                                         <div class="col-md-3">
                                             <div class="card" style="background-color: #6D7DB1; padding: 10px;">
                                                 <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">{{ song.1 }}</h6>
-                                                <img src="{% static 'gp'|add:forloop.counter|stringformat:"d"|add:".svg" %}" alt="Song Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
+                                                <img src="{% static song.2 %}" alt="Song Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -152,7 +152,7 @@
                                         <div class="col-md-3">
                                             <div class="card" style="background-color: #6D7DB1; padding: 10px;">
                                                 <h6 class="card-subtitle mb-2 text-muted" style="font-family: TT Wellingtons; text-align: center; color: #FDF2DC !important; font-size: 17px;">{{ album.1 }}</h6>
-                                                <img src="{% static 'gp'|add:forloop.counter|stringformat:"d"|add:".svg" %}" alt="Album Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
+                                                <img src="{% static album.2 %}" alt="Album Image {{ forloop.counter }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; margin-bottom: 10px;">
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -168,5 +168,4 @@
     </div>
 </body>
 </html>
-
-{% endblock content %}
+{% endblock %}
