@@ -23,11 +23,19 @@ def showManagePlaylistPage(request):
                 for row in rows
             ]
 
-            return render(request, "manageplaylist.html", {'playlists': playlists})
+            context = {
+                'playlists': playlists,
+                'show_navbar': True,
+            }
+
+            
         except:
+            context = {
+                'show_navbar': True,
+            }
             print('belum ada playlist')
 
-            return render(request, "manageplaylist.html", {})
+    return render(request, "manageplaylist.html", context)
 
 def add_playlist(request):
     if request.method == "POST":
@@ -283,10 +291,22 @@ def showPlayingSongPage(request, id_konten):
             } for playlist in playlists
         ]
 
+        context = {
+            'detail': detail,
+            'playlists': playlists,
+            'show_navbar': True,
+        }
         if is_premium:
-            return render(request,"playsong.html",{'detail': detail, 'premium':'premium', 'playlists': playlists} )
+            context = {
+                'detail': detail,
+                'premium':'premium',
+                'playlists': playlists,
+                'show_navbar': True,
+            }
+        
 
-    return render(request,"playsong.html",{'detail': detail, 'playlists': playlists} )
+
+    return render(request,"playsong.html",context)
 
 def add_song_to_playlist(request, id_konten):
     if request.method == "POST":

@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -8,14 +9,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Playlist</title>
     <style>
-        body{
-            background: url("https://i.ibb.co/kmFyJGY/background1.jpg"); 
-            background-size: cover; 
-            background-repeat: no-repeat; 
+        body::after{
+            content: "";
+            background: url("https://i.ibb.co/kmFyJGY/background1.jpg")no-repeat center center fixed; 
+            background-size: cover;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            height: 200%;
+            z-index: -1;
+        }
+
+        .container {
             display: flex;
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
     
         .list-playlist {
@@ -147,6 +158,7 @@
     </style>
 </head>
 <body>
+<div class="container">
     <div class="list-playlist">
         <h4 style="font-family: SangBleu; text-align: center; color: #09173E; font-size: 25px ; font-weight: bold;">USER PLAYLIST</h4>
         {% if playlists %}
@@ -206,6 +218,7 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 
 <script>
