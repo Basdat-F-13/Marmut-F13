@@ -44,7 +44,7 @@
     <body>   
         <header>
             <div class="header-left">
-                <a href="javascript:history.back()" id="back-button">
+                <a href="{% url 'viewchart:viewchart' %}" id="back-button">
                     <img src="{% static 'back.svg' %}" alt="Back Button">
                 </a>
                 <div class="center-content" style="color: #FCF4E1;">
@@ -71,7 +71,7 @@
                                     <p class="card-text"><b>{{ song.title }}</b></p>
                                     <p><small class="text-muted">{{ song.total_plays }} plays | {{ song.release_date }}</small></p>
                                     <div class="text-right">
-                                        <a href="songpage"> <!-- Set href to the desired page -->
+                                        <a href="{% url 'manageplaylist:playingsong' song.id_konten %}"> <!-- Set href to the desired page -->
                                             <img src="{% static 'viewsong.svg' %}" alt="View Song" style="width: 17%;"> <!-- Reduce the image size -->
                                         </a>
                                     </div>
