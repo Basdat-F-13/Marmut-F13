@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body{
-            background: url("https://cdn.discordapp.com/attachments/1020337769505116261/1235238329948049448/background1.jpg?ex=6633a4d7&is=66325357&hm=3fe09b6aecaa886440ee1d6d1b7daadb9b44ede781b29fda118099919b152e01&"); 
+            background: url("https://i.ibb.co.com/kmFyJGY/background1.jpg"); 
             background-size: cover; 
             background-repeat: no-repeat; 
             display: flex;
@@ -20,16 +20,17 @@
 
         .list-lagu{
             background-color: #FDF2DE; 
-            height: 90%; 
+            min-height: 90%; 
             width: 50%;
             padding: 5px;
             border-radius: 8px;
+            overflow: auto;
         }
 
         .detail-playlist{
             background-color: transparent;
-            height: 90%;
-            width: 30%;
+            height: 120%;
+            width: 45%;
             padding: 5px;
             display: flex;
             flex-direction: column;
@@ -64,6 +65,20 @@
             color: #FDF2DE;
         }
 
+        .add-btn{
+            background-color:#09173E;
+            color: #FDF2DE;
+            padding: 8px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 300px; 
+            display: block;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         .back-button {
             position: absolute; 
             left: 20px; 
@@ -92,6 +107,99 @@
             margin-right: 10px;
             width: 200px; 
         }
+
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #09173E;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #6D7DB1;
+            width: 80%;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #6D7DB1;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #FDF2DE;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-family: SangBleu;
+            color: #FDF2DE;
+            font-size: large;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .modal-body {
+            margin-top: 20px;
+        }
+
+        .modal-body select {
+            font-family: "TT Wellingtons";
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #6D7DB1;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #FDF2DE;
+            color: #09173E;
+        }
+
+        .modal-body select:focus {
+            border: 1px solid #09173E;
+            outline: none;
+        }
+
+        .modal-body select option {
+            background-color: #FDF2DE;
+            color: #09173E;
+        }
+
+        .modal-footer {
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .modal-footer button {
+            background-color: #6D7DB1;
+            color: #FDF2DE;
+            padding: 8px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 120px;
+            margin: 0 5px;
+            border: none;
+        }
+
+        .modal-footer button:hover {
+            background-color: #FDF2DE;
+            color: #6D7DB1;
+        }
     </style>
 </head>
 <body>
@@ -99,12 +207,12 @@
         <h2 style="font-family: SangBleu; text-align: center; color: #FDF2DE; font-size: 26px; font-weight: bold;">User Playlist Detail</h2>
 
         <div class="detail">
-            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E; font-size: 20px; font-weight: bold;">Playlist1</p>
-            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Pembuat: Pembuat1</p>
-            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Jumlah Lagu: 12</p>
-            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Total Durasi: 8 jam 20 menit</p>
-            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Tanggal Dibuat: 18/03/24</p>
-            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Deskripsi: Lorem Ipsum</p>
+            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E; font-size: 20px; font-weight: bold;">{{detail.judul}}</p>
+            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Pembuat: {{ detail.pembuat }}</p>
+            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Jumlah Lagu: {{ detail.jumlah_lagu }}</p>
+            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Total Durasi: {{ detail.total_durasi }}</p>
+            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Tanggal Dibuat: {{ detail.tanggal_dibuat }}</p>
+            <p style="font-family: TT Wellingtons; text-align: center; color: #09173E;">Deskripsi: {{ detail.deskripsi }}</p>
         </div>
 
         <div style="margin-top: 20px; text-align: center;">
@@ -112,10 +220,14 @@
         </div>
     </div>
 
-    <button class="back-button">Back</button>
+    <form action="{% url 'manageplaylist:manage-playlist'%}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button class="back-button">Back</button>
+    </form>
     
     <div class="list-lagu">
         <h4 style="font-family: SangBleu; text-align: center; color:#09173E; font-size: 22px;">Daftar Lagu</h4>
+        {% if songs %}
         <table style="width: 80%; margin: 20px auto; border-collapse: collapse; background-color: #FDF2DE; border: 2px solid #09173E; border-radius: 8px;">
             <thead>
                 <tr>
@@ -126,28 +238,75 @@
                 </tr>
             </thead>
             <tbody>
+                {% for song in songs %}
                 <tr>
-                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">Song1</td>
-                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">Artist1</td>
-                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">2 menit</td>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">{{song.judul}}</td>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">{{song.artist}}</td>
+                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">{{song.durasi}}</td>
                     <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">
-                        <button class="tbtn"">Lihat</button>
+                        <form action="{% url 'manageplaylist:playingsong' song.id_konten %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="tbtn"">Lihat</button>
+                        </form>
                         <button class="tbtn"">Play</button>
+                        <form action="{% url 'manageplaylist:delete-song' detail.id_playlist song.id_konten %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="tbtn">Hapus</button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">Song2</td>
-                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">Artist2</td>
-                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">3 menit</td>
-                    <td style="padding: 10px; color:#09173E; text-align: center; font-family: TT Wellingtons;">
-                        <button class="tbtn"">Lihat</button>
-                        <button class="tbtn"">Play</button>
-                    </td>
-                </tr>
-                <!-- Tambahkan baris lagu lainnya di sini jika ada -->
+                {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p style="color: #09173E; font-size: 16px; font-weight: normal; padding: 10px; text-align: center;">Anda Belum Memiliki Lagu</p>
+        {% endif %}
+        
+        <button id="add-btn" class="add-btn">Tambah Lagu</button>
+    </div>
+
+    <div id="addSongModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>Add Song</h2>
+            </div>
+            <div class="modal-body">
+                <form id="addSongForm" method="post" action="{% url 'manageplaylist:add-song' detail.id_playlist %}">
+                    {% csrf_token %}
+                    <select name="song" id="song" required>
+                        <option value="" disabled selected>Select a song</option>
+                        {% for song in all_songs %}
+                        <option value="{{ song.id_konten}}">{{ song.judul }} - {{ song.artist }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="modal-footer">
+                        <button type="submit" id="submitBtn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
+
+<script>
+    var addModal = document.getElementById("addSongModal");
+    var addBtn = document.getElementById("add-btn");
+    var span = document.getElementsByClassName("close")[0];
+
+    addBtn.onclick = function() {
+        addModal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == addModal) {
+            addModal.style.display = "none";
+        }
+    }
+</script>
 </html>
 {% endblock content %}
