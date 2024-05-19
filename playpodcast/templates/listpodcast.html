@@ -1,4 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
+
+{% block content %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +41,7 @@
 <body>
     <header>
         <div class="header-left">
-            <a href="javascript:history.back()" id="back-button">
+            <a href="{% url 'dashboard:dashboard' %}" id="back-button">
                 <img src="{% static 'back.svg' %}" alt="Back Button">
             </a>
             <div class="center-content" style="color: #09173E;">
@@ -77,3 +80,5 @@
     </div>
 </body>
 </html>
+
+{% endblock %}

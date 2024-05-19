@@ -49,7 +49,7 @@
                         <li>
                             <a href="#" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Subscription</a>
                         </li>
-                            <a href="" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Podcast</a>
+                            <a href="{% url 'playpodcast:listpodcast' %}" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Podcast</a>
                         </li>
                             <a href="#" class="block py-2 px-3 text-white rounded hover:bg-rosyBrown md:hover:bg-transparent md:hover:text-peach md:p-0">Song</a>
                         </li>
@@ -105,7 +105,7 @@
                             {% endif %}
                             {% if user_role.podcaster %}
                                 <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Podcast</a>
+                                <a href="{% url 'managepod:managepod' %}" class="block px-4 py-2 text-sm text-gray-200 hover:bg-peach hover:text-white">Manage Podcast</a>
                                 </li>
                             {% endif %}
                             {% if user_role.artist or user_role.songwriter %}

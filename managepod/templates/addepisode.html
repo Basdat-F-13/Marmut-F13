@@ -61,13 +61,13 @@
     </style>
 </head>
 <body>
-    <a href="javascript:history.back()" id="back-button">
+    <a href="{% url 'managepod:managepod' %}" id="back-button">
         <img src="{% static 'back.svg' %}" alt="Back Button">
     </a>
     <div class="center">
         <div class="card">
             <h2>Create Episode</h2>
-            <h4>Podcast 1</h4>
+            <h4>{{ podcast_name }}</h4>
             <form action="{% url 'managepod:addepisode' podcast_id %}" method="post">
                 {% csrf_token %}
                 <label for="title">Title:</label><br>
